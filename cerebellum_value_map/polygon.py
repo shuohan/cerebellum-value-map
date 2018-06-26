@@ -133,6 +133,7 @@ class Stripe(Defs):
         self.add(pattern)
 
 
+
 # def draw_colormap(colormap, insert, size, color_step=10, font_size=10):
 # 
 #     colormap_group = svgwrite.container.Group()
