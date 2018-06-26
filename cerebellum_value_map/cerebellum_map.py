@@ -3,9 +3,11 @@
 
 import svgwrite
 from svgwrite.path import Path
-from svgwrite.shapes import Polygon
+from svgwrite.shapes import Polygon, Rect
 from svgwrite.text import Text
 from svgwrite.container import Group
+from svgwrite.pattern import Pattern
+from svgwrite.container import Defs
 from itertools import count
 
 from collections import OrderedDict, defaultdict
@@ -13,6 +15,9 @@ from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 
 import numpy as np
+
+
+pattern_type = 'stripe'
 
 
 class PolygonBoundingBox:
@@ -89,32 +94,43 @@ class AnotatedPolygon(Group):
     def __init__(self, points, value, anot, color_converter):
         super().__init__()
         anchor_bbox = PolygonBoundingBox(points)
-        self.add(Polygon(points, fill=color_converter.convert(value)))
-        self.add(Value(value, anchor_bbox))
+        color = color_converter.convert(value['color'], value['disabling'])
+        self.add(Polygon(points, fill=color))
+        self.add(Value(value['color'], anchor_bbox))
         self.add(Anotation(anot['text'], anot['position'], anchor_bbox))
 
 
 class ColorConverter:
-    def __init__(self, min_value=-1, max_value=1, colormap='RdBu_r'):
-        norm = Normalize(vmin=min_value, vmax=max_value)
-        self.colormap = ScalarMappable(norm, cmap='RdBu_r')
-    def convert(self, num):
-        color = self.colormap.to_rgba(num, bytes=True)[:3]
-        color_string = 'rgb(%s)' % ', '.join([str(c) for c in color])
-        return color_string
+
+    def __init__(self, min_color_value=-1, max_color_value=1, colormap='RdBu_r',
+                 max_disabling_value=0.05, pattern_name='stripe'):
+        self.max_disabling_value = max_disabling_value
+        self.pattern_name = pattern_name
+        norm = Normalize(vmin=min_color_value, vmax=max_color_value)
+        self.colormap = ScalarMappable(norm, cmap=colormap)
+
+    def convert(self, color_value, disabling_value=-float('inf')):
+        if  disabling_value <= self.max_disabling_value:
+            color = self.colormap.to_rgba(color_value, bytes=True)[:3]
+            result = 'rgb(%s)' % ', '.join([str(c) for c in color])
+        else:
+            result = "url(#%s)" % (self.pattern_name)
+        return result
 
 
-def create_strip_pattern():
-    # from https://philiprogers.com/svgpatterns/#thinstripes
-    defs = svgwrite.container.Defs()
-    rect = svgwrite.shapes.Rect(insert=(0, 0), size=(5, 5), fill='#9e9e9e')
-    path = Path('M0 5L5 0ZM6 4L4 6ZM-1 1L1 -1Z', stroke='#888', stroke_width=1)
-    pattern = svgwrite.pattern.Pattern(id="stripe", patternUnits="userSpaceOnUse", 
-                                       size=(5, 5), stroke="none")
-    pattern.add(rect)
-    pattern.add(path)
-    defs.add(pattern)
-    return defs
+class Stripe(Defs):
+    def __init__(self):
+        # from https://philiprogers.com/svgpatterns/#thinstripes
+        super().__init__()
+        rect = Rect(insert=(0, 0), size=(5, 5), fill='#9e9e9e')
+        path = Path('M 0 5 L 5 0 Z M 6 4 L 4 6 Z M -1 1 L 1 -1 Z',
+                    stroke='#888', stroke_width=1)
+        pattern = Pattern(id=self.__class__.__name__.lower(),
+                          patternUnits='userSpaceOnUse',
+                          size=(5, 5), stroke='none')
+        pattern.add(rect)
+        pattern.add(path)
+        self.add(pattern)
 
 
 # def draw_colormap(colormap, insert, size, color_step=10, font_size=10):
@@ -149,15 +165,6 @@ def create_strip_pattern():
 #     colormap_group.add(vzero_text)
 # 
 #     return colormap_group
-# 
-# 
-# def get_fill(color, pval):
-#     if pval <= 0.05:
-#         color = colormap.to_rgba(num, alpha=False, bytes=True)[:3]
-#         fill = 'rgb(%s)' % ', '.join([str(c) for c in color])
-#     else:
-#         fill = "url(#%s)" % (pattern_name)
-#     return fill
 # 
 # 
 # def draw_cerebellum(corr_vals, p_vals, output_filename='cerebellum.svg', 

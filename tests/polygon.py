@@ -6,12 +6,14 @@ sys.path.insert(0, '..')
 from xml.etree import ElementTree
 
 from cerebellum_value_map.cerebellum_map import AnotatedPolygon, ColorConverter
-from cerebellum_value_map.cerebellum_map import Anotation
+from cerebellum_value_map.cerebellum_map import Stripe
 
 
 points = [(100, 100), (100, 200), (200, 200), (200, 100)]
-value = 0.5
+value = dict(color=0.5, disabling=0.1)
 anot = dict(text='test', position='right')
 cc = ColorConverter()
 polygon = AnotatedPolygon(points, value, anot, cc)
+stripe = Stripe()
 print(ElementTree.tostring(polygon.get_xml()))
+print(ElementTree.tostring(stripe.get_xml()))
