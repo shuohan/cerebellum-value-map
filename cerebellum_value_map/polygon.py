@@ -58,8 +58,8 @@ class PolygonBoundingBox:
         polygon_points = np.array(polygon_points)
         self.left = np.min(polygon_points[:, 0])
         self.right = np.max(polygon_points[:, 0])
-        self.bottom = np.min(polygon_points[:, 1])
-        self.up = np.max(polygon_points[:, 1])
+        self.bottom = np.max(polygon_points[:, 1])
+        self.up = np.min(polygon_points[:, 1])
 
     @property
     def h_center(self):
