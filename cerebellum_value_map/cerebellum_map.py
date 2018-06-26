@@ -15,84 +15,83 @@ from matplotlib.cm import ScalarMappable
 import numpy as np
 
 
-class Anotation:
-    def __init__(self, text, position):
-        self.text = text
-        self.position = position
+class PolygonBoundingBox:
+    def __init__(self, polygon_points):
+        polygon_points = np.array(polygon_points)
+        self.left = np.min(polygon_points[:, 0])
+        self.right = np.max(polygon_points[:, 0])
+        self.bottom = np.min(polygon_points[:, 1])
+        self.up = np.max(polygon_points[:, 1])
+
+    @property
+    def h_center(self):
+        return (self.left + self.right) / 2
+
+    @property
+    def v_center(self):
+        return (self.bottom + self.up) / 2
+
+
+class Anotation(Text):
+    def __init__(self, text, position, anchor_bbox):
+        self.anchor_bbox = anchor_bbox
+        super().__init__(text, **self._get_prop(position))
+
+    def _get_prop(self, position):
+        if position == 'right':
+            prop = self._put_right()
+        if position == 'left':
+            prop = self._put_left()
+        if position == 'up':
+            prop = self._put_up()
+        if position == 'bottom':
+            prop = self._put_bottom()
+        return prop
+
+    def _put_right(self):
+        prop = dict(x=[self.anchor_bbox.right],
+                    y=[self.anchor_bbox.v_center],
+                    text_anchor='start',
+                    alignment_baseline='middle')
+        return prop
+
+    def _put_left(self):
+        prop = dict(x=[self.anchor_bbox.right],
+                    y=[self.anchor_bbox.v_center],
+                    text_anchor='end',
+                    alignment_baseline='middle')
+        return prop
+
+    def _put_up(self):
+        prop = dict(x=[self.anchor_bbox.h_center],
+                    y=[self.anchor_bbox.up],
+                    text_anchor='middle',
+                    alignment_baseline='baseline')
+        return prop
+
+    def _put_bottom(self):
+        prop = dict(x=[self.anchor_bbox.h_center],
+                    y=[self.anchor_bbox.bottom],
+                    text_anchor='middle',
+                    alignment_baseline='hanging')
+        return prop
+
+
+class Value(Text):
+    def __init__(self, value, anchor_bbox):
+        super().__init__(str(value), stroke='none', 
+                         x=[anchor_bbox.h_center], y=[anchor_bbox.v_center],
+                         alignment_baseline='middle', text_anchor='middle')
 
 
 class AnotatedPolygon(Group):
 
-    _num_ids = count(0)
-
-    def __init__(self, points, value, anat, color_converter, **kwargs):
-        super().__init__(**kwargs)
-        self._id = str(next(self._num_ids))
-        self.color_converter = color_converter
-        self.polygon = self._build_polygon(points, value)
-        self.value = self._build_value(points, value)
-        self.anat = self._build_anat(points, anat)
-        self.add(self.polygon)
-        self.add(self.value)
-        self.add(self.anat)
-
-    def _build_polygon(self, points, value):
-        color = self.color_converter.convert(value)
-        id = self._calcualte_id('polygon')
-        polygon = Polygon(points=points, fill=color, id=id)
-        return polygon
-
-    def _convert_points(self, points):
-        result = list()
-        for point in points:
-            result.append('%f,%f' % point)
-        return result
-
-    def _calcualte_id(self, text):
-        id = '_'.join([self.__class__.__name__, text, self._id])
-        return id
-
-    def _build_value(self, points, value):
-        left, right, bottom, up = self._calculate_bbox(points)
-        x = (left + right) / 2
-        y = (bottom + up) / 2
-        text = Text(str(value), stroke='none', x=[x], y=[y],
-                    alignment_baseline='middle', text_anchor='middle')
-        return text
-
-    def _calculate_bbox(self, points):
-        points = np.array(points)
-        left = np.min(points[:, 0])
-        right = np.max(points[:, 0])
-        bottom = np.min(points[:, 1])
-        up = np.max(points[:, 1])
-        return left, right, bottom, up
-
-    def _build_anat(self, points, anat):
-        left, right, bottom, up = self._calculate_bbox(points)
-        if anat.position == 'right':
-            x = right
-            y = (bottom + up) / 2
-            text_anchor = 'start'
-            alignment_baseline = 'middle'
-        if anat.position == 'left':
-            x = right 
-            y = (bottom + up) / 2
-            text_anchor = 'end'
-            alignment_baseline = 'middle'
-        if anat.position == 'up':
-            x = (right + left) / 2
-            y = up
-            text_anchor = 'middle'
-            alignment_baseline = 'baseline'
-        if anat.position == 'bottom':
-            x = (right + left) / 2
-            y = bottom
-            text_anchor = 'middle'
-            alignment_baseline = 'hanging'
-        text = Text(anat.text, stroke='none', text_anchor=text_anchor,
-                    alignment_baseline=alignment_baseline)
-        return text
+    def __init__(self, points, value, anot, color_converter):
+        super().__init__()
+        anchor_bbox = PolygonBoundingBox(points)
+        self.add(Polygon(points, fill=color_converter.convert(value)))
+        self.add(Value(value, anchor_bbox))
+        self.add(Anotation(anot['text'], anot['position'], anchor_bbox))
 
 
 class ColorConverter:
