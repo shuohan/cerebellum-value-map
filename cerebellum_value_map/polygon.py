@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import svgwrite
@@ -16,11 +15,12 @@ from matplotlib.cm import ScalarMappable
 
 import numpy as np
 
+from py_singleton import Singleton
 
 pattern_type = 'stripe'
 
 
-class ColorConverter:
+class ColorConverter(metaclass=Singleton):
 
     def __init__(self, min_color_value=-1, max_color_value=1, colormap='RdBu_r',
                  max_disabling_value=0.05, pattern_name='stripe'):
@@ -124,9 +124,10 @@ class Value(Text):
 
 class AnotatedPolygon(Group):
 
-    def __init__(self, points, value, anot, color_converter):
+    def __init__(self, points, value, anot):
         super().__init__()
         anchor_bbox = PolygonBoundingBox(points)
+        color_converter = ColorConverter()
         color = color_converter.convert(value['color'], value['disabling'])
         self.add(Polygon(points, fill=color))
         self.add(Value(value['color'], anchor_bbox))
@@ -231,50 +232,6 @@ class AnotatedPolygon(Group):
 #     val_positions['vermis VI right zone'] = dict(x=275, y=165)
 # 
 #     lob_path_codes = OrderedDict()
-# 
-#     lob_path_codes['right X total'] = "M 327 270 L 350 285 L 392 290 L 392 279 L 357 276 L 327 254 Z"
-#     lob_path_codes['right IX total'] = "M 327 230 L 327 254 L 354 276 L 392 272 L 358 222 Z"
-#     lob_path_codes['right VIII medial zone'] = "M 327 230 L 327 206 L 356 200 L 356 230 Z"
-#     lob_path_codes['right VIII lateral zone 1'] = "M 451 253 L 392 272 L 356 230 L 356 200 L 363 197.2 Z"
-#     lob_path_codes['right VIIB medial zone'] = "M 356 205.194 L 327 206 L 327 196 L 356 192.133 Z"
-#     lob_path_codes['right VIIB lateral zone 1'] = "M 462 230 L 451 253 L 363 205 L 356 205.194 L 356 192.133 L 372 190 Z"
-#     lob_path_codes['right VII Crus II medial zone'] = "M 356 181.387 L 356 194.682 L 327 196 L 327 181 Z"
-#     lob_path_codes['right VII Crus II lateral zone 1'] = "M 356 194.682 L 356 181.387 L 416 182.187 L 416 211.802 L 371 194 Z"
-#     lob_path_codes['right VII Crus II lateral zone 2'] = "M 416 182.19 L 477 183.003 L 462 230.003 L 416 211.805 Z"
-#     lob_path_codes['right VII Crus I medial zone'] = "M 356 163.098 L 356 184.085 L 327 181 L 327 173 Z"
-#     lob_path_codes['right VII Crus I lateral zone 1'] = "M 416 142.61 L 416 184.777 L 374 186 L 356 184.085 L 356 163.098 Z"
-#     lob_path_codes['right VII Crus I lateral zone 2'] = "M 450 131 L 477 183 L 416 184.777 L 416 142.61 Z"
-#     lob_path_codes['right VI medial zone'] = "M 354.614 135 L 356 135 L 356 169.617 L 327 173 L 327 150 Z"
-#     lob_path_codes['right VI lateral zone 1'] = "M 408 106 L 450 131 L 387 166 L 356 169.617 L 356 134.247 Z"
-#     lob_path_codes['right anterior lobe medial zone'] = "M 300 90 L 356 98.296 L 356 147.149 L 300 153 Z"
-#     lob_path_codes['right anterior lobe lateral zone 1'] = "M 356 147.149 L 356 98.296 L 408 106 L 367 146 Z"
-#     lob_path_codes['vermis X right zone'] = "M 300 254 L 300 270 L 327 270 L 327 254 Z"
-#     lob_path_codes['vermis IX right zone'] = "M 300 230 L 300 254 L 327 254 L 327 230 Z"
-#     lob_path_codes['vermis VIII right zone'] = "M 300 206 L 300 230 L 327 230 L 327 206 Z"
-#     lob_path_codes['vermis VII right zone'] = "M 300 173 L 300 206 L 327 206 L 327 173 Z"
-#     lob_path_codes['vermis VI right zone'] = "M 300 153 L 300 173 L 327 173 L 327 150 Z"
-# 
-#     lob_path_codes['left X total'] = lob_path_codes['right X total']
-#     lob_path_codes['left IX total'] = lob_path_codes['right IX total']
-#     lob_path_codes['left VIII medial zone'] = lob_path_codes['right VIII medial zone']
-#     lob_path_codes['left VIII lateral zone 1'] = lob_path_codes['right VIII lateral zone 1']
-#     lob_path_codes['left VIIB medial zone'] = lob_path_codes['right VIIB medial zone']
-#     lob_path_codes['left VIIB lateral zone 1'] = lob_path_codes['right VIIB lateral zone 1']
-#     lob_path_codes['left VII Crus II medial zone'] = lob_path_codes['right VII Crus II medial zone']
-#     lob_path_codes['left VII Crus II lateral zone 1'] = lob_path_codes['right VII Crus II lateral zone 1']
-#     lob_path_codes['left VII Crus II lateral zone 2'] = lob_path_codes['right VII Crus II lateral zone 2']
-#     lob_path_codes['left VII Crus I medial zone'] = lob_path_codes['right VII Crus I medial zone']
-#     lob_path_codes['left VII Crus I lateral zone 1'] = lob_path_codes['right VII Crus I lateral zone 1']
-#     lob_path_codes['left VII Crus I lateral zone 2'] = lob_path_codes['right VII Crus I lateral zone 2']
-#     lob_path_codes['left VI medial zone'] = lob_path_codes['right VI medial zone']
-#     lob_path_codes['left VI lateral zone 1'] = lob_path_codes['right VI lateral zone 1']
-#     lob_path_codes['left anterior lobe medial zone'] = lob_path_codes['right anterior lobe medial zone']
-#     lob_path_codes['left anterior lobe lateral zone 1'] = lob_path_codes['right anterior lobe lateral zone 1']
-#     lob_path_codes['vermis X left zone'] = lob_path_codes['vermis X right zone']
-#     lob_path_codes['vermis IX left zone'] = lob_path_codes['vermis IX right zone']
-#     lob_path_codes['vermis VIII left zone'] = lob_path_codes['vermis VIII right zone']
-#     lob_path_codes['vermis VII left zone'] = lob_path_codes['vermis VII right zone']
-#     lob_path_codes['vermis VI left zone'] = lob_path_codes['vermis VI right zone']
 # 
 #     labels = svgwrite.container.Group(font_size=label_font_size, stroke='none')
 #     labels.add(Text('X', x=[220], y=[300]))
