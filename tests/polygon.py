@@ -5,8 +5,8 @@ import sys
 sys.path.insert(0, '..')
 from xml.etree import ElementTree
 
-from cerebellum_value_map.polygon import AnotatedPolygon, ColorConverter
-from cerebellum_value_map.polygon import Stripe
+from cerebellum_value_map.polygon import AnotatedPolygon
+from cerebellum_value_map.color import ColorConverter, Stripe
 
 
 points = [(100, 100), (100, 200), (200, 200), (200, 100)]

@@ -1,65 +1,36 @@
 # -*- coding: utf-8 -*-
 
-import svgwrite
-from svgwrite.path import Path
-from svgwrite.shapes import Polygon, Rect
-from svgwrite.text import Text
-from svgwrite.container import Group
-from svgwrite.pattern import Pattern
-from svgwrite.container import Defs
-from itertools import count
-
-from collections import OrderedDict, defaultdict
-from matplotlib.colors import Normalize
-from matplotlib.cm import ScalarMappable
-
 import numpy as np
+from svgwrite.shapes import Polygon
 
-from py_singleton import Singleton
-
-pattern_type = 'stripe'
-
-
-class ColorConverter(metaclass=Singleton):
-
-    def __init__(self, min_color_value=-1, max_color_value=1, colormap='RdBu_r',
-                 max_disabling_value=0.05, pattern_name='stripe'):
-        self.max_disabling_value = max_disabling_value
-        self.pattern_name = pattern_name
-        norm = Normalize(vmin=min_color_value, vmax=max_color_value)
-        self.colormap = ScalarMappable(norm, cmap=colormap)
-
-    def convert(self, color_value, disabling_value=-float('inf')):
-        if  disabling_value <= self.max_disabling_value:
-            color = self.colormap.to_rgba(color_value, bytes=True)[:3]
-            result = 'rgb(%s)' % ', '.join([str(c) for c in color])
-        else:
-            result = "url(#%s)" % (self.pattern_name)
-        return result
+from .abstract import BoundingBox, AnotatedPart
+from .color import ColorConverter
+from .text import Anotation, Value
 
 
-class Stripe(Defs):
-    def __init__(self):
-        # from https://philiprogers.com/svgpatterns/#thinstripes
-        super().__init__()
-        rect = Rect(insert=(0, 0), size=(5, 5), fill='#9e9e9e')
-        path = Path('M 0 5 L 5 0 Z M 6 4 L 4 6 Z M -1 1 L 1 -1 Z',
-                    stroke='#888', stroke_width=1)
-        pattern = Pattern(id=self.__class__.__name__.lower(),
-                          patternUnits='userSpaceOnUse',
-                          size=(5, 5), stroke='none')
-        pattern.add(rect)
-        pattern.add(path)
-        self.add(pattern)
-
-
-class PolygonBoundingBox:
+class PolygonBoundingBox(BoundingBox):
     def __init__(self, polygon_points):
         polygon_points = np.array(polygon_points)
-        self.left = np.min(polygon_points[:, 0])
-        self.right = np.max(polygon_points[:, 0])
-        self.bottom = np.max(polygon_points[:, 1])
-        self.up = np.min(polygon_points[:, 1])
+        self._left = np.min(polygon_points[:, 0])
+        self._right = np.max(polygon_points[:, 0])
+        self._bottom = np.max(polygon_points[:, 1])
+        self._up = np.min(polygon_points[:, 1])
+
+    @property
+    def up(self):
+        return self._up
+
+    @property
+    def bottom(self):
+        return self._bottom
+
+    @property
+    def left(self):
+        return self._left
+
+    @property
+    def right(self):
+        return self._right
 
     @property
     def h_center(self):
@@ -70,59 +41,7 @@ class PolygonBoundingBox:
         return (self.bottom + self.up) / 2
 
 
-class Anotation(Text):
-    def __init__(self, text, position, anchor_bbox):
-        self.anchor_bbox = anchor_bbox
-        super().__init__(text, **self._get_prop(position))
-
-    def _get_prop(self, position):
-        if position == 'right':
-            prop = self._put_right()
-        if position == 'left':
-            prop = self._put_left()
-        if position == 'up':
-            prop = self._put_up()
-        if position == 'bottom':
-            prop = self._put_bottom()
-        return prop
-
-    def _put_right(self):
-        prop = dict(x=[self.anchor_bbox.right],
-                    y=[self.anchor_bbox.v_center],
-                    text_anchor='start',
-                    alignment_baseline='middle')
-        return prop
-
-    def _put_left(self):
-        prop = dict(x=[self.anchor_bbox.right],
-                    y=[self.anchor_bbox.v_center],
-                    text_anchor='end',
-                    alignment_baseline='middle')
-        return prop
-
-    def _put_up(self):
-        prop = dict(x=[self.anchor_bbox.h_center],
-                    y=[self.anchor_bbox.up],
-                    text_anchor='middle',
-                    alignment_baseline='baseline')
-        return prop
-
-    def _put_bottom(self):
-        prop = dict(x=[self.anchor_bbox.h_center],
-                    y=[self.anchor_bbox.bottom],
-                    text_anchor='middle',
-                    alignment_baseline='hanging')
-        return prop
-
-
-class Value(Text):
-    def __init__(self, value, anchor_bbox):
-        super().__init__(str(value), stroke='none', 
-                         x=[anchor_bbox.h_center], y=[anchor_bbox.v_center],
-                         alignment_baseline='middle', text_anchor='middle')
-
-
-class AnotatedPolygon(Group):
+class AnotatedPolygon(AnotatedPart):
 
     def __init__(self, points, value, anot):
         super().__init__()
@@ -132,7 +51,6 @@ class AnotatedPolygon(Group):
         self.add(Polygon(points, fill=color))
         self.add(Value(value['color'], anchor_bbox))
         self.add(Anotation(anot['text'], anot['position'], anchor_bbox))
-
 
 
 # def draw_colormap(colormap, insert, size, color_step=10, font_size=10):
