@@ -38,20 +38,18 @@ class Shape:
         return (self.up + self.bottom) / 2
 
 
-class ShapeAnotator:
+class AnotatedShape(Group):
 
-    @classmethod
-    def anotate(self, shape, coloring_value=None, disabling_value=-float('inf'),
-                anotation_text='', anotation_position='right'):
+    def __init__(self, shape, anotation_text='', anotation_position='right',
+                 coloring_value=None, disabling_value=-float('inf')):
+        super().__init__()
         color_converter = ColorConverter()
         color = color_converter.convert(coloring_value, disabling_value)
         value = Value(coloring_value, shape)
         anotation = Anotation(anotation_text, anotation_position, shape)
-        group = Group()
-        group.add(shape.get_svg(fill=color)) 
-        group.add(value)
-        group.add(anotation)
-        return group
+        self.add(shape.get_svg(fill=color)) 
+        self.add(value)
+        self.add(anotation)
 
 
 class Polygon(Shape):
