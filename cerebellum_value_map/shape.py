@@ -41,7 +41,7 @@ class Shape:
 class AnotatedShape(Group):
 
     def __init__(self, shape, anotation_text='', anotation_position='right',
-                 coloring_value=None, disabling_value=-float('inf')):
+                 coloring_value=0, disabling_value=-float('inf')):
         super().__init__()
         color_converter = ColorConverter()
         color = color_converter.convert(coloring_value, disabling_value)
