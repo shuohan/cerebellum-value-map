@@ -17,12 +17,12 @@ class PathCode:
 
 class Move(PathCode):
     def get_path_code(self):
-        return 'M %f,%f' % tuple(self.end_point)
+        return 'M %.3f,%.3f' % tuple(self.end_point)
 
 
 class Line(PathCode):
     def get_path_code(self):
-        return 'L %f,%f' % tuple(self.end_point)
+        return 'L %.3f,%.3f' % tuple(self.end_point)
 
 
 class QuadraticCurve(PathCode):
@@ -31,7 +31,7 @@ class QuadraticCurve(PathCode):
         super().__init__(end_point)
 
     def get_path_code(self):
-        return 'Q %f,%f %f,%f' % (*self.handle, *self.end_point)
+        return 'Q %.3f,%.3f %.3f,%.3f' % (*self.handle, *self.end_point)
 
 
 class BezierCurve(PathCode):
@@ -41,14 +41,15 @@ class BezierCurve(PathCode):
         super().__init__(end_point)
 
     def get_path_code(self):
-        return 'C %f,%f %f,%f %f,%f' % (*self.start_handle, *self.end_handle,
-                                        *self.end_point) 
+        return 'C %.3f,%.3f %.3f,%.3f %.3f,%.3f' % (*self.start_handle,
+                                                    *self.end_handle,
+                                                    *self.end_point)
 
 
 class FreeShape(Shape, PathCode):
 
-    def __init__(self, move, **codes, close=True):
-        self.codes = [move] + codes
+    def __init__(self, move, *codes, close=True):
+        self.codes = [move] + list(codes)
         self.close = True
 
     def get_path_code(self):
@@ -56,6 +57,10 @@ class FreeShape(Shape, PathCode):
         if self.close:
             path_codes.append('Z')
         return ' '.join(path_codes)
+
+    def get_svg(self, **kwargs):
+        path = Path([self.get_path_code()], **kwargs)
+        return path
 
     @property
     def points(self):
