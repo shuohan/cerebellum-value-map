@@ -4,8 +4,8 @@ from svgwrite.text import Text
 
 
 class Anotation(Text):
-    def __init__(self, text, position, anchor_bbox):
-        self.anchor_bbox = anchor_bbox
+    def __init__(self, text, position, shape):
+        self.shape = shape
         super().__init__(text, **self._get_prop(position))
 
     def _get_prop(self, position):
@@ -20,36 +20,36 @@ class Anotation(Text):
         return prop
 
     def _put_right(self):
-        prop = dict(x=[self.anchor_bbox.right],
-                    y=[self.anchor_bbox.v_center],
+        prop = dict(x=[self.shape.right],
+                    y=[self.shape.v_center],
                     text_anchor='start',
                     alignment_baseline='middle')
         return prop
 
     def _put_left(self):
-        prop = dict(x=[self.anchor_bbox.right],
-                    y=[self.anchor_bbox.v_center],
+        prop = dict(x=[self.shape.right],
+                    y=[self.shape.v_center],
                     text_anchor='end',
                     alignment_baseline='middle')
         return prop
 
     def _put_up(self):
-        prop = dict(x=[self.anchor_bbox.h_center],
-                    y=[self.anchor_bbox.up],
+        prop = dict(x=[self.shape.h_center],
+                    y=[self.shape.up],
                     text_anchor='middle',
                     alignment_baseline='baseline')
         return prop
 
     def _put_bottom(self):
-        prop = dict(x=[self.anchor_bbox.h_center],
-                    y=[self.anchor_bbox.bottom],
+        prop = dict(x=[self.shape.h_center],
+                    y=[self.shape.bottom],
                     text_anchor='middle',
                     alignment_baseline='hanging')
         return prop
 
 
 class Value(Text):
-    def __init__(self, value, anchor_bbox):
+    def __init__(self, value, shape):
         super().__init__(str(value), stroke='none', 
-                         x=[anchor_bbox.h_center], y=[anchor_bbox.v_center],
+                         x=[shape.h_center], y=[shape.v_center],
                          alignment_baseline='middle', text_anchor='middle')
