@@ -6,7 +6,7 @@ from svgwrite.text import Text
 class Anotation(Text):
     def __init__(self, text, position, shape):
         self.shape = shape
-        super().__init__(text, **self._get_prop(position))
+        super().__init__(text, **self._get_prop(position), stroke='none')
 
     def _get_prop(self, position):
         if position == 'right':
