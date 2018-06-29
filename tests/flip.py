@@ -11,7 +11,12 @@ drawing = Drawing('test.svg', size=('600', '400'), stroke_width=2,
                   font_size=12, stroke='black')
 
 right_x = RightLobuleX(1)
-left_x = right_x.left_right_flip(40.312)
+left_x = right_x.left_right_flip(0.5)
+print(right_x.left_right_flip)
+
+print(right_x, left_x)
+print(left_x.shape.get_path_code())
+
 drawing.add(right_x)
 drawing.add(left_x)
 
