@@ -37,12 +37,21 @@ class Shape:
     def v_center(self):
         return (self.up + self.bottom) / 2
 
+    def left_right_flip(self, axis_x):
+        raise NotImplementedError
 
-class AnotatedShape(Group):
+
+class AnotatedShape(Group, Shape):
 
     def __init__(self, shape, anotation_text='', anotation_position='right',
                  coloring_value=0, disabling_value=-float('inf')):
         super().__init__()
+        self.shape = shape
+        self.anotation_text = anotation_text
+        self.anotation_position = anotation_position
+        self.coloring_value = coloring_value
+        self.disabling_value = disabling_value
+
         color_converter = ColorConverter()
         color = color_converter.convert(coloring_value, disabling_value)
         value = Value(coloring_value, shape)
@@ -50,6 +59,12 @@ class AnotatedShape(Group):
         self.add(shape.get_svg(fill=color)) 
         self.add(value)
         self.add(anotation)
+
+    def left_right_flip(self, axis_x):
+        flipped_shape = self.shape.left_right_flip(axis_x)
+        return AnotatedShape(flipped_shape, self.anotation_text,
+                             self.anotation_position, self.coloring_value,
+                             self.disabling_value)
 
 
 class Polygon(Shape):

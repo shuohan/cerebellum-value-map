@@ -15,6 +15,13 @@ class PathCode:
     def get_path_code(self):
         raise NotImplementedError
 
+    def flip(self, axis_x):
+        end_point = self._flip_point(self.end_point, axis_x)
+        return self.__class__(end_point)
+
+    def _flip_point(self, point, axis_x):
+        return (2 * axis_x - point[0], point[1])
+
 
 class Move(PathCode):
     def get_path_code(self):
@@ -34,6 +41,11 @@ class QuadraticCurve(PathCode):
     def get_path_code(self):
         return 'Q %.3f,%.3f %.3f,%.3f' % (*self.handle, *self.end_point)
 
+    def flip(self, axis_x):
+        handle = self._flip_point(self.handle, axis_x)
+        end_point = self._flip_point(self.end_point, axis_x)
+        return self.__class__(handle, end_point)
+
 
 class BezierCurve(PathCode):
     def __init__(self, start_handle, end_handle, end_point):
@@ -45,6 +57,12 @@ class BezierCurve(PathCode):
         return 'C %.3f,%.3f %.3f,%.3f %.3f,%.3f' % (*self.start_handle,
                                                     *self.end_handle,
                                                     *self.end_point)
+
+    def flip(self, axis_x):
+        start_handle = self._flip_point(self.start_handle, axis_x)
+        end_handle = self._flip_point(self.end_handle, axis_x)
+        end_point = self._flip_point(self.end_point, axis_x)
+        return self.__class__(start_handle, end_handle, end_point)
 
 
 class FreeShape(Shape, PathCode):
@@ -62,6 +80,12 @@ class FreeShape(Shape, PathCode):
     def get_svg(self, **kwargs):
         path = Path([self.get_path_code()], **kwargs)
         return path
+
+    def left_right_flip(self, axis_x):
+        flipped_codes = list()
+        for code in self.codes:
+            flipped_codes.append(code.flip(axis_x))
+        return FreeShape(*flipped_codes, close=self.close)
 
     @property
     def points(self):
