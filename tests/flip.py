@@ -12,10 +12,9 @@ drawing = Drawing('test.svg', size=('600', '400'), stroke_width=2,
 
 right_x = RightLobuleX(1)
 left_x = right_x.left_right_flip(0.5)
-print(right_x.left_right_flip)
 
-print(right_x, left_x)
-print(left_x.shape.get_path_code())
+print(right_x.shape)
+print(left_x.shape)
 
 drawing.add(right_x)
 drawing.add(left_x)

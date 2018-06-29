@@ -20,7 +20,6 @@ class CerebellarRegion(AnotatedShape):
             anotation_position = 'left'
         elif 'left' in self.anotation_position:
             anotation_position = 'right'
-        print(self.__class__)
         return AnotatedShape(flipped, anotation_text=anotation_text,
                              anotation_position=anotation_position,
                              coloring_value=coloring_value,

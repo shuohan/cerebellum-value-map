@@ -22,15 +22,21 @@ class PathCode:
     def _flip_point(self, point, axis_x):
         return (2 * axis_x - point[0], point[1])
 
+    def __str__(self):
+        raise NotImplementedError
+
 
 class Move(PathCode):
     def get_path_code(self):
         return 'M %.3f,%.3f' % tuple(self.end_point)
-
+    def __str__(self):
+        return 'M((%.3f, %.3f))' % tuple(self.end_point)
 
 class Line(PathCode):
     def get_path_code(self):
         return 'L %.3f,%.3f' % tuple(self.end_point)
+    def __str__(self):
+        return 'L((%.3f, %.3f))' % tuple(self.end_point)
 
 
 class QuadraticCurve(PathCode):
@@ -45,6 +51,9 @@ class QuadraticCurve(PathCode):
         handle = self._flip_point(self.handle, axis_x)
         end_point = self._flip_point(self.end_point, axis_x)
         return self.__class__(handle, end_point)
+
+    def __str__(self):
+        return 'Q((%.3f, %.3f), (%.3f, %.3f))' % (*self.handle, *self.end_point)
 
 
 class BezierCurve(PathCode):
@@ -63,6 +72,10 @@ class BezierCurve(PathCode):
         end_handle = self._flip_point(self.end_handle, axis_x)
         end_point = self._flip_point(self.end_point, axis_x)
         return self.__class__(start_handle, end_handle, end_point)
+
+    def __str__(self):
+        result = 'C((%.3f, %.3f), (%.3f, %.3f), (%.3f, %.3f))'
+        return result % (*self.start_handle, *self.end_handle, *self.end_point)
 
 
 class FreeShape(Shape, PathCode):
@@ -86,6 +99,9 @@ class FreeShape(Shape, PathCode):
         for code in self.codes:
             flipped_codes.append(code.flip(axis_x))
         return FreeShape(*flipped_codes, close=self.close)
+
+    def __str__(self):
+        return '\n'.join([code.__str__() for code in self.codes])
 
     @property
     def points(self):
