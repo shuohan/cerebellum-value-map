@@ -40,6 +40,9 @@ class Shape:
     def left_right_flip(self, axis_x):
         raise NotImplementedError
 
+    def translate(self, x, y):
+        raise NotImplementedError
+
 
 class AnotatedShape(Group, Shape):
 
@@ -63,6 +66,12 @@ class AnotatedShape(Group, Shape):
     def left_right_flip(self, axis_x):
         flipped_shape = self.shape.left_right_flip(axis_x)
         return AnotatedShape(flipped_shape, self.anotation_text,
+                             self.anotation_position, self.coloring_value,
+                             self.disabling_value)
+
+    def translate(self, x, y):
+        shape = self.shape.translate(x, y)
+        return AnotatedShape(shape, self.anotation_text,
                              self.anotation_position, self.coloring_value,
                              self.disabling_value)
 

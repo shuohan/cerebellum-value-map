@@ -25,6 +25,10 @@ class PathCode:
     def __str__(self):
         raise NotImplementedError
 
+    def translate(self, x, y):
+        end_point = (self.end_point[0]+x, self.end_point[1]+y)
+        return self.__class__(end_point)
+
 
 class Move(PathCode):
     def get_path_code(self):
@@ -55,6 +59,11 @@ class QuadraticCurve(PathCode):
     def __str__(self):
         return 'Q((%.3f, %.3f), (%.3f, %.3f))' % (*self.handle, *self.end_point)
 
+    def translate(self, x, y):
+        handle = (self.handle[0]+x, self.handle[1]+y)
+        end_point = (self.end_point[0]+x, self.end_point[1]+y)
+        return self.__class__(handle, end_point)
+
 
 class BezierCurve(PathCode):
     def __init__(self, start_handle, end_handle, end_point):
@@ -76,6 +85,12 @@ class BezierCurve(PathCode):
     def __str__(self):
         result = 'C((%.3f, %.3f), (%.3f, %.3f), (%.3f, %.3f))'
         return result % (*self.start_handle, *self.end_handle, *self.end_point)
+
+    def translate(self, x, y):
+        start_handle = (self.start_handle[0]+x, self.start_handle[1]+y)
+        end_handle = (self.end_handle[0]+x, self.end_handle[1]+y)
+        end_point = (self.end_point[0]+x, self.end_point[1]+y)
+        return self.__class__(start_handle, end_handle, end_point)
 
 
 class FreeShape(Shape, PathCode):
@@ -106,3 +121,7 @@ class FreeShape(Shape, PathCode):
     @property
     def points(self):
         return np.array([code.end_point for code in self.codes])
+
+    def translate(self, x, y):
+        codes = [code.translate(x, y) for code in self.codes]
+        return FreeShape(*codes, close=self.close)
