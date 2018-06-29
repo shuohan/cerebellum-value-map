@@ -12,13 +12,15 @@ class CerebellarRegion(AnotatedShape):
     def left_right_flip(self, coloring_value=0,
                             disabling_value=-float('inf')):
         flipped = self.shape.left_right_flip(40.312)
-        if 'R' in self.anotation_text:
-            anotation_text = self.anotation_text.replace('R', 'L')
+        anotation_text = self.anotation_text
+        anotation_position = self.anotation_position
+        if 'R' in anotation_text:
+            anotation_text = anotation_text.replace('R', 'L')
         elif 'L' in self.anotation_text:
-            anotation_text = self.anotation_text.replace('L', 'R')
-        if 'right' in self.anotation_position:
+            anotation_text = anotation_text.replace('L', 'R')
+        if 'right' in anotation_position:
             anotation_position = 'left'
-        elif 'left' in self.anotation_position:
+        elif 'left' in anotation_position:
             anotation_position = 'right'
         return AnotatedShape(flipped, anotation_text=anotation_text,
                              anotation_position=anotation_position,
