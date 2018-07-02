@@ -1,27 +1,11 @@
 # -*- coding: utf-8 -*-
 
-from .free_shape import FreeShape as FS
-from .free_shape import Move as M
-from .free_shape import Line as L
-from .free_shape import BezierCurve as C
-from .free_shape import QuadraticCurve as Q
-from .shape import AnnotatedShape
-
-
-class CerebellarRegion(AnnotatedShape):
-
-    axis = 270.312
-    show_annotation = False
-    _shape = None
-    _annotation_text = ''
-    _annotation_position = 'right'
-
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        annotation_text = self._annotation_text if self.show_annotation else ''
-        super().__init__(self._shape, annotation_text=annotation_text,
-                         annotation_position=self._annotation_position,
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
+from .shape import FreeShape as FS
+from .shape import Move as M
+from .shape import Line as L
+from .shape import BezierCurve as C
+from .shape import QuadraticCurve as Q
+from .shape import CerebellarRegion
 
 
 class RightLobuleI2III(CerebellarRegion):

@@ -5,7 +5,7 @@ import sys
 sys.path.insert(0, '..')
 from xml.etree import ElementTree
 
-from cerebellum_value_map.cerebellum import *
+from cerebellum_value_map.lobules import *
 
 from svgwrite import Drawing
 from svgwrite.container import Group
