@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
+from .path_code import Move as M
+from .path_code import Line as L
+from .path_code import BezierCurve as C
+from .path_code import QuadraticCurve as Q
+
 from .shape import PathShape as PS
-from .shape import Move as M
-from .shape import Line as L
-from .shape import BezierCurve as C
-from .shape import QuadraticCurve as Q
 from .shape import AnnotatedShape
 
 

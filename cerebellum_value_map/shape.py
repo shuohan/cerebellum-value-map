@@ -5,7 +5,7 @@ from svgwrite.container import Group
 from svgwrite.path import Path
 
 from .color import ColorConverter
-from .path_code import PathCode, Move, Line, QuadraticCurve, BezierCurve
+from .path_code import PathCode
 from .text import Value, Annotation
 
 
