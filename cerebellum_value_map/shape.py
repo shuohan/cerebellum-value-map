@@ -69,10 +69,10 @@ class PathShape(Shape, PathCode):
         path = Path([str(self)], **kwargs)
         return path
 
-    def flip(self, axis_x):
+    def flip(self, axis):
         flipped_codes = list()
         for code in self.codes:
-            flipped_codes.append(code.flip(axis_x))
+            flipped_codes.append(code.flip(axis))
         return self.__class__(*flipped_codes, close=self.close)
 
     def translate(self, x, y):
@@ -102,7 +102,6 @@ class AnnotatedShape_(Group, Shape):
 
 class AnnotatedShape(AnnotatedShape_):
 
-    axis = 270.312
     show_annotation = False
     _shape = None
     _annotation_text = ''

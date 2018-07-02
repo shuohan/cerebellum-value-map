@@ -8,6 +8,9 @@ from .shape import QuadraticCurve as Q
 from .shape import AnnotatedShape
 
 
+axis = 270.312
+
+
 class RightLobuleI2III(AnnotatedShape):
     _shape = PS(M((270.312, 20.869)),
                 Q((274.155, 14.277), (278.375, 11.375)),
@@ -274,44 +277,44 @@ class VermisX(AnnotatedShape):
 
 
 class LeftLobuleI2III(AnnotatedShape):
-    _shape = RightLobuleI2III._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleI2III._shape.flip(axis)
 
 
 class LeftLobuleIV(AnnotatedShape):
-    _shape = RightLobuleIV._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleIV._shape.flip(axis)
 
 
 class LeftLobuleV(AnnotatedShape):
-    _shape = RightLobuleV._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleV._shape.flip(axis)
 
 
 class LeftLobuleVI(AnnotatedShape):
-    _shape = RightLobuleVI._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleVI._shape.flip(axis)
 
 
 class LeftLobuleCrusI(AnnotatedShape):
-    _shape = RightLobuleCrusI._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleCrusI._shape.flip(axis)
 
 
 class LeftLobuleCrusII(AnnotatedShape):
-    _shape = RightLobuleCrusII._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleCrusII._shape.flip(axis)
 
 
 class LeftLobuleVIIB(AnnotatedShape):
-    _shape = RightLobuleVIIB._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleVIIB._shape.flip(axis)
 
 
 class LeftLobuleVIIIA(AnnotatedShape):
-    _shape = RightLobuleVIIIA._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleVIIIA._shape.flip(axis)
 
 
 class LeftLobuleVIIIB(AnnotatedShape):
-    _shape = RightLobuleVIIIB._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleVIIIB._shape.flip(axis)
 
 
 class LeftLobuleIX(AnnotatedShape):
-    _shape = RightLobuleIX._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleIX._shape.flip(axis)
 
 
 class LeftLobuleX(AnnotatedShape):
-    _shape = RightLobuleX._shape.flip(AnnotatedShape.axis)
+    _shape = RightLobuleX._shape.flip(axis)
