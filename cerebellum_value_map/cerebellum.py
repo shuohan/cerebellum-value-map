@@ -9,9 +9,21 @@ from .shape import AnotatedShape
 
 
 class CerebellarRegion(AnotatedShape):
+
+    axis_x = 270.312
+    _shape = None
+    _anotation_text = ''
+    _anotation_position = 'right'
+
+    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
+        super().__init__(self._shape, anotation_text=self._anotation_text,
+                         anotation_position=self._anotation_position,
+                         coloring_value=coloring_value,
+                         disabling_value=disabling_value)
+
     def left_right_flip(self, coloring_value=0,
                             disabling_value=-float('inf')):
-        flipped = self.shape.left_right_flip(270.312)
+        flipped = self.shape.left_right_flip(self.axis_x)
         anotation_text = self.anotation_text
         anotation_position = self.anotation_position
         if 'R' in anotation_text:
@@ -36,11 +48,6 @@ class RightLobuleI2III(CerebellarRegion):
                 Q((322.173, 26.358), (317.575, 31.694)),
                 C((311.572, 38.661), (304.230, 43.927), (296.446, 46.707)),
                 Q((287.669, 49.841), (270.312, 47.819)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R I-III',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class RightLobuleIV(CerebellarRegion):
@@ -55,11 +62,6 @@ class RightLobuleIV(CerebellarRegion):
                 C((334.798, 43.371), (331.535, 47.957), (326.360, 52.267)),
                 C((319.403, 58.060), (311.974, 61.902), (303.006, 62.276)),
                 Q((289.661, 62.832), (270.312, 62.276)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R IV',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class RightLobuleV(CerebellarRegion):
@@ -74,12 +76,7 @@ class RightLobuleV(CerebellarRegion):
                 C((352.819, 54.022), (346.692, 63.906), (337.500, 72.833)),
                 C((326.737, 83.287), (315.500, 90.500), (299.500, 90.500)),
                 Q((289.500, 90.500), (270.312, 90.500)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R V',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
-    
+
 
 class RightLobuleVI(CerebellarRegion):
     _shape = FS(M((300.365, 90.509)),
@@ -96,11 +93,6 @@ class RightLobuleVI(CerebellarRegion):
                 C((316.500, 115.988), (303.721, 115.333), (298.479, 115.333)),
                 Q((301.619, 107.830), (302.041, 104.400)),
                 Q((302.648, 99.473), (300.365, 90.509)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R VI',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class RightLobuleCrusI(CerebellarRegion):
@@ -117,11 +109,6 @@ class RightLobuleCrusI(CerebellarRegion):
                 C((320.189, 129.816), (302.647, 136.347), (296.742, 136.347)),
                 Q((301.154, 132.519), (301.701, 129.606)),
                 Q((302.722, 124.156), (299.230, 113.775)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R Crus I',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
 
 
 class RightLobuleCrusII(CerebellarRegion):
@@ -135,11 +122,6 @@ class RightLobuleCrusII(CerebellarRegion):
                 C((411.000, 184.667), (396.530, 171.110), (377.000, 167.333)),
                 C((359.903, 164.027), (335.000, 166.000), (327.667, 165.333)),
                 Q((302.655, 163.060), (298.095, 160.306)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R Crus II',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
 
 
 class RightLobuleVIIB(CerebellarRegion):
@@ -158,11 +140,6 @@ class RightLobuleVIIB(CerebellarRegion):
                 Q((308.746, 180.050), (298.662, 180.735)),
                 Q((301.302, 176.059), (301.701, 173.206)),
                 Q((302.370, 168.411), (298.095, 160.306)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R VIIB',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class RightLobuleVIIIA(CerebellarRegion):
@@ -178,11 +155,6 @@ class RightLobuleVIIIA(CerebellarRegion):
                 Q((322.717, 191.925), (298.662, 193.786)),
                 Q((300.564, 190.080), (300.679, 187.852)),
                 Q((300.815, 185.209), (298.662, 180.735)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R VIIIA',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class RightLobuleVIIIB(CerebellarRegion):
@@ -200,11 +172,6 @@ class RightLobuleVIIIB(CerebellarRegion):
                 C((320.046, 205.367), (313.698, 207.933), (302.634, 207.973)),
                 Q((303.638, 203.404), (303.105, 200.959)),
                 Q((302.461, 198.006), (298.662, 193.786)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R VIIIB',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class RightLobuleIX(CerebellarRegion):
@@ -221,11 +188,6 @@ class RightLobuleIX(CerebellarRegion):
                 C((310.570, 242.234), (303.394, 238.949), (299.230, 236.913)),
                 Q((301.774, 231.783), (302.630, 228.808)),
                 Q((304.682, 221.680), (302.634, 207.973)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R IX',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class RightLobuleX(CerebellarRegion):
@@ -242,11 +204,6 @@ class RightLobuleX(CerebellarRegion):
                 C((290.849, 286.860), (289.315, 293.507), (287.880, 292.523)),
                 C((293.406, 287.904), (296.030, 277.828), (297.170, 272.885)),
                 C((299.198, 264.095), (299.699, 252.623), (299.230, 236.913)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='R X',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class VermisVI(CerebellarRegion):
@@ -259,11 +216,6 @@ class VermisVI(CerebellarRegion):
                 Q((239.005, 107.830), (238.583, 104.400)),
                 Q((237.976, 99.473), (240.259, 90.509)),
                 Q((251.124, 90.500), (270.312, 90.500)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class VermisVII(CerebellarRegion):
@@ -283,11 +235,6 @@ class VermisVII(CerebellarRegion):
                 Q((239.470, 132.519), (238.923, 129.606)),
                 Q((237.902, 124.156), (241.394, 113.775)),
                 Q((252.055, 115.333), (270.312, 115.333)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class VermisVIII(CerebellarRegion):
@@ -303,11 +250,6 @@ class VermisVIII(CerebellarRegion):
                 Q((238.163, 198.006), (241.962, 193.786)),
                 Q((240.060, 190.080), (239.945, 187.852)),
                 Q((239.809, 185.209), (241.962, 180.735)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class VermisIX(CerebellarRegion):
@@ -320,11 +262,6 @@ class VermisIX(CerebellarRegion):
                 Q((238.850, 231.783), (237.994, 228.808)),
                 Q((235.942, 221.680), (237.990, 207.973)),
                 Q((246.898, 209.923), (270.312, 208.667)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='',
-                         anotation_position='right',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
     
 
 class VermisX(CerebellarRegion):
@@ -337,8 +274,47 @@ class VermisX(CerebellarRegion):
                 C((247.218, 287.904), (244.594, 277.828), (243.454, 272.885)),
                 C((241.426, 264.095), (240.925, 252.623), (241.394, 236.913)),
                 C((250.535, 233.138), (260.174, 231.885), (270.312, 233.155)))
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text='V X',
-                         anotation_position='bottom',
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value)
+
+
+class LeftLobuleI2III(CerebellarRegion):
+    _shape = RightLobuleI2III._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleIV(CerebellarRegion):
+    _shape = RightLobuleIV._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleV(CerebellarRegion):
+    _shape = RightLobuleV._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleVI(CerebellarRegion):
+    _shape = RightLobuleVI._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleCrusI(CerebellarRegion):
+    _shape = RightLobuleCrusI._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleCrusII(CerebellarRegion):
+    _shape = RightLobuleCrusII._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleVIIB(CerebellarRegion):
+    _shape = RightLobuleVIIB._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleVIIIA(CerebellarRegion):
+    _shape = RightLobuleVIIIA._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleVIIIB(CerebellarRegion):
+    _shape = RightLobuleVIIIB._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleIX(CerebellarRegion):
+    _shape = RightLobuleIX._shape.left_right_flip(CerebellarRegion.axis_x)
+
+
+class LeftLobuleX(CerebellarRegion):
+    _shape = RightLobuleX._shape.left_right_flip(CerebellarRegion.axis_x)
