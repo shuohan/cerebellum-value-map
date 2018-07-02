@@ -12,16 +12,14 @@ class PathCode:
     command = ''
 
     def __init__(self, *points):
-        print(points)
         self.points = points
+
+    def __repr__(self):
+        pattern = '%s(' + ', '.join(['(%.3f, %.3f)'] * len(self.points)) + ')'
+        return pattern % (self.command, *[c for p in self.points for c in p])
 
     def __str__(self):
         pattern = '%s ' + ' '.join(['%.3f, %.3f'] * len(self.points))
-        return pattern % (self.command, *[c for p in self.points for c in p])
-
-    def __repr__(self):
-        print(self.points)
-        pattern = '%s(' + ', '.join(['(%.3f, %.3f)'] * len(self.points)) + ')'
         return pattern % (self.command, *[c for p in self.points for c in p])
 
     def flip(self, axis):
@@ -55,11 +53,19 @@ class FreeShape(Shape, PathCode):
         self.codes = [move] + list(codes)
         self.close = True
 
+    def __repr__(self):
+        return ',\n'.join([repr(code) for code in self.codes])
+
     def __str__(self):
         path_codes = [str(c) for c in self.codes]
         if self.close:
             path_codes.append('Z')
         return ' '.join(path_codes)
+
+    @property
+    def points(self):
+        points = np.array([code.points[-1] for code in self.codes])
+        return points
 
     def get_svg(self, **kwargs):
         path = Path([str(self)], **kwargs)
@@ -69,17 +75,7 @@ class FreeShape(Shape, PathCode):
         flipped_codes = list()
         for code in self.codes:
             flipped_codes.append(code.flip(axis_x))
-        print(flipped_codes)
         return FreeShape(*flipped_codes, close=self.close)
-
-    def __repr__(self):
-        return ',\n'.join([repr(code) for code in self.codes])
-
-    @property
-    def points(self):
-        points = np.array([code.points[-1] for code in self.codes])
-        print(points)
-        return points
 
     def translate(self, x, y):
         codes = [code.translate(x, y) for code in self.codes]
