@@ -5,19 +5,21 @@ from .free_shape import Move as M
 from .free_shape import Line as L
 from .free_shape import BezierCurve as C
 from .free_shape import QuadraticCurve as Q
-from .shape import AnotatedShape
+from .shape import AnnotatedShape
 
 
-class CerebellarRegion(AnotatedShape):
+class CerebellarRegion(AnnotatedShape):
 
     axis = 270.312
+    show_annotation = False
     _shape = None
-    _anotation_text = ''
-    _anotation_position = 'right'
+    _annotation_text = ''
+    _annotation_position = 'right'
 
     def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        super().__init__(self._shape, anotation_text=self._anotation_text,
-                         anotation_position=self._anotation_position,
+        annotation_text = self._annotation_text if self.show_annotation else ''
+        super().__init__(self._shape, annotation_text=annotation_text,
+                         annotation_position=self._annotation_position,
                          coloring_value=coloring_value,
                          disabling_value=disabling_value)
 
@@ -30,6 +32,8 @@ class RightLobuleI2III(CerebellarRegion):
                 Q((322.173, 26.358), (317.575, 31.694)),
                 C((311.572, 38.661), (304.230, 43.927), (296.446, 46.707)),
                 Q((287.669, 49.841), (270.312, 47.819)))
+    _annotation_text = 'Lobule I-III'
+    show_annotation = True
     
 
 class RightLobuleIV(CerebellarRegion):
@@ -44,6 +48,8 @@ class RightLobuleIV(CerebellarRegion):
                 C((334.798, 43.371), (331.535, 47.957), (326.360, 52.267)),
                 C((319.403, 58.060), (311.974, 61.902), (303.006, 62.276)),
                 Q((289.661, 62.832), (270.312, 62.276)))
+    _annotation_text = 'Lobule IV'
+    show_annotation = True
     
 
 class RightLobuleV(CerebellarRegion):
@@ -58,6 +64,8 @@ class RightLobuleV(CerebellarRegion):
                 C((352.819, 54.022), (346.692, 63.906), (337.500, 72.833)),
                 C((326.737, 83.287), (315.500, 90.500), (299.500, 90.500)),
                 Q((289.500, 90.500), (270.312, 90.500)))
+    _annotation_text = 'Lobule V'
+    show_annotation = True
 
 
 class RightLobuleVI(CerebellarRegion):
@@ -75,6 +83,8 @@ class RightLobuleVI(CerebellarRegion):
                 C((316.500, 115.988), (303.721, 115.333), (298.479, 115.333)),
                 Q((301.619, 107.830), (302.041, 104.400)),
                 Q((302.648, 99.473), (300.365, 90.509)))
+    _annotation_text = 'Lobule VI'
+    show_annotation = True
     
 
 class RightLobuleCrusI(CerebellarRegion):
@@ -91,6 +101,8 @@ class RightLobuleCrusI(CerebellarRegion):
                 C((320.189, 129.816), (302.647, 136.347), (296.742, 136.347)),
                 Q((301.154, 132.519), (301.701, 129.606)),
                 Q((302.722, 124.156), (299.230, 113.775)))
+    _annotation_text = 'Lobule Crus I'
+    show_annotation = True
 
 
 class RightLobuleCrusII(CerebellarRegion):
@@ -104,6 +116,8 @@ class RightLobuleCrusII(CerebellarRegion):
                 C((411.000, 184.667), (396.530, 171.110), (377.000, 167.333)),
                 C((359.903, 164.027), (335.000, 166.000), (327.667, 165.333)),
                 Q((302.655, 163.060), (298.095, 160.306)))
+    _annotation_text = 'Lobule Crus II'
+    show_annotation = True
 
 
 class RightLobuleVIIB(CerebellarRegion):
@@ -122,7 +136,9 @@ class RightLobuleVIIB(CerebellarRegion):
                 Q((308.746, 180.050), (298.662, 180.735)),
                 Q((301.302, 176.059), (301.701, 173.206)),
                 Q((302.370, 168.411), (298.095, 160.306)))
-    
+    _annotation_text = 'Lobule VIIB'
+    show_annotation = True
+
 
 class RightLobuleVIIIA(CerebellarRegion):
     _shape = FS(M((298.662, 180.735)),
@@ -137,6 +153,8 @@ class RightLobuleVIIIA(CerebellarRegion):
                 Q((322.717, 191.925), (298.662, 193.786)),
                 Q((300.564, 190.080), (300.679, 187.852)),
                 Q((300.815, 185.209), (298.662, 180.735)))
+    _annotation_text = 'Lobule VIIIA'
+    show_annotation = True
     
 
 class RightLobuleVIIIB(CerebellarRegion):
@@ -154,6 +172,8 @@ class RightLobuleVIIIB(CerebellarRegion):
                 C((320.046, 205.367), (313.698, 207.933), (302.634, 207.973)),
                 Q((303.638, 203.404), (303.105, 200.959)),
                 Q((302.461, 198.006), (298.662, 193.786)))
+    _annotation_text = 'Lobule VIIIB'
+    show_annotation = True
     
 
 class RightLobuleIX(CerebellarRegion):
@@ -170,6 +190,8 @@ class RightLobuleIX(CerebellarRegion):
                 C((310.570, 242.234), (303.394, 238.949), (299.230, 236.913)),
                 Q((301.774, 231.783), (302.630, 228.808)),
                 Q((304.682, 221.680), (302.634, 207.973)))
+    _annotation_text = 'Lobule IX'
+    show_annotation = True
     
 
 class RightLobuleX(CerebellarRegion):
@@ -186,6 +208,8 @@ class RightLobuleX(CerebellarRegion):
                 C((290.849, 286.860), (289.315, 293.507), (287.880, 292.523)),
                 C((293.406, 287.904), (296.030, 277.828), (297.170, 272.885)),
                 C((299.198, 264.095), (299.699, 252.623), (299.230, 236.913)))
+    _annotation_text = 'Lobule X'
+    show_annotation = True
     
 
 class VermisVI(CerebellarRegion):
@@ -198,6 +222,7 @@ class VermisVI(CerebellarRegion):
                 Q((239.005, 107.830), (238.583, 104.400)),
                 Q((237.976, 99.473), (240.259, 90.509)),
                 Q((251.124, 90.500), (270.312, 90.500)))
+    _annotation_text = 'Vermis VI'
     
 
 class VermisVII(CerebellarRegion):
@@ -217,6 +242,7 @@ class VermisVII(CerebellarRegion):
                 Q((239.470, 132.519), (238.923, 129.606)),
                 Q((237.902, 124.156), (241.394, 113.775)),
                 Q((252.055, 115.333), (270.312, 115.333)))
+    _annotation_text = 'Vermis VII'
     
 
 class VermisVIII(CerebellarRegion):
@@ -232,6 +258,7 @@ class VermisVIII(CerebellarRegion):
                 Q((238.163, 198.006), (241.962, 193.786)),
                 Q((240.060, 190.080), (239.945, 187.852)),
                 Q((239.809, 185.209), (241.962, 180.735)))
+    _annotation_text = 'Vermis VIII'
     
 
 class VermisIX(CerebellarRegion):
@@ -244,6 +271,7 @@ class VermisIX(CerebellarRegion):
                 Q((238.850, 231.783), (237.994, 228.808)),
                 Q((235.942, 221.680), (237.990, 207.973)),
                 Q((246.898, 209.923), (270.312, 208.667)))
+    _annotation_text = 'Vermis IX'
     
 
 class VermisX(CerebellarRegion):
@@ -256,6 +284,9 @@ class VermisX(CerebellarRegion):
                 C((247.218, 287.904), (244.594, 277.828), (243.454, 272.885)),
                 C((241.426, 264.095), (240.925, 252.623), (241.394, 236.913)),
                 C((250.535, 233.138), (260.174, 231.885), (270.312, 233.155)))
+    _annotation_text = 'Vermis'
+    _annotation_position = 'bottom'
+    show_annotation = True
 
 
 class LeftLobuleI2III(CerebellarRegion):

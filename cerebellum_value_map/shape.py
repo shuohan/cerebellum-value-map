@@ -43,21 +43,21 @@ class Shape:
         raise NotImplementedError
 
 
-class AnotatedShape(Group, Shape):
+class AnnotatedShape(Group, Shape):
 
-    def __init__(self, shape, anotation_text='', anotation_position='right',
+    def __init__(self, shape, annotation_text='', annotation_position='right',
                  coloring_value=0, disabling_value=-float('inf')):
         super().__init__()
         self.shape = shape
-        self.anotation_text = anotation_text
-        self.anotation_position = anotation_position
+        self.annotation_text = annotation_text
+        self.annotation_position = annotation_position
         self.coloring_value = coloring_value
         self.disabling_value = disabling_value
 
         color_converter = ColorConverter()
         color = color_converter.convert(coloring_value, disabling_value)
         value = Value(coloring_value, shape)
-        anotation = Anotation(anotation_text, anotation_position, shape)
+        annotation = Anotation(annotation_text, annotation_position, shape)
         self.add(shape.get_svg(fill=color)) 
         self.add(value)
-        self.add(anotation)
+        self.add(annotation)
