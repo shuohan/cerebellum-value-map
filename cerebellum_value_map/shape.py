@@ -10,6 +10,10 @@ from .text import Value, Annotation
 
 
 class Shape:
+
+    @property
+    def points(self):
+        raise NotImplementedError
     
     @property
     def left(self):
@@ -80,28 +84,23 @@ class PathShape(Shape, PathCode):
         return self.__class__(*codes, close=self.close)
 
 
-class AnnotatedShape_(Group, Shape):
+class AnnotatedShape_(Shape):
 
     def __init__(self, shape, annotation_text='', annotation_position='right',
                  coloring_value=0, disabling_value=-float('inf')):
         super().__init__()
-        self.shape = shape
-        self.annotation_text = annotation_text
-        self.annotation_position = annotation_position
-        self.coloring_value = coloring_value
-        self.disabling_value = disabling_value
-
         color_converter = ColorConverter()
-        color = color_converter.convert(coloring_value, disabling_value)
-        self.add(shape.get_svg(fill=color)) 
+        self.shape = shape
+        self.color = color_converter.convert(coloring_value, disabling_value)
+        self.annot = Annotation(annotation_text, annotation_position, shape)
+        self.value = Value(coloring_value, shape)
 
-        value = Value(coloring_value, shape)
-        self.add(value)
-
-        if len(annotation_text) > 0:
-            annotation = Annotation(annotation_text, annotation_position, shape)
-            self.add(annotation)
-
+    def get_svg(self, **kwargs):
+        group = Group(**kwargs)
+        group.add(self.shape.get_svg(fill=self.color))
+        group.add(self.value)
+        group.add(self.annot)
+        return group
 
 
 class AnnotatedShape(AnnotatedShape_):
