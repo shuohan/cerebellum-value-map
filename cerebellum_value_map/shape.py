@@ -2,7 +2,6 @@
 
 import numpy as np
 from svgwrite.container import Group
-from svgwrite.shapes import Polygon as PolygonSVG
 
 from .color import ColorConverter
 from .text import Value, Anotation
@@ -10,9 +9,6 @@ from .text import Value, Anotation
 
 class Shape:
     
-    def get_svg(self, **kwargs):
-        raise NotImplementedError
-
     @property
     def left(self):
         return np.min(self.points[:, 0])
@@ -36,6 +32,9 @@ class Shape:
     @property
     def v_center(self):
         return (self.up + self.bottom) / 2
+
+    def get_svg(self, **kwargs):
+        raise NotImplementedError
 
     def flip(self, axis):
         raise NotImplementedError
@@ -74,15 +73,3 @@ class AnotatedShape(Group, Shape):
         return AnotatedShape(shape, self.anotation_text,
                              self.anotation_position, self.coloring_value,
                              self.disabling_value)
-
-
-class Polygon(Shape):
-    def __init__(self, points):
-        self._points = points
-
-    @property
-    def points(self):
-        return np.array(self._points)
-
-    def get_svg(self, **kwargs):
-        return PolygonSVG(self._points, **kwargs)
