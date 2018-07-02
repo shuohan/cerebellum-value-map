@@ -93,23 +93,25 @@ class AnnotatedShape_(Group, Shape):
 
         color_converter = ColorConverter()
         color = color_converter.convert(coloring_value, disabling_value)
-        value = Value(coloring_value, shape)
-        annotation = Annotation(annotation_text, annotation_position, shape)
         self.add(shape.get_svg(fill=color)) 
+
+        value = Value(coloring_value, shape)
         self.add(value)
-        self.add(annotation)
+
+        if len(annotation_text) > 0:
+            annotation = Annotation(annotation_text, annotation_position, shape)
+            self.add(annotation)
+
 
 
 class AnnotatedShape(AnnotatedShape_):
 
-    show_annotation = False
     _shape = None
     _annotation_text = ''
     _annotation_position = 'right'
 
     def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        annotation_text = self._annotation_text if self.show_annotation else ''
-        super().__init__(self._shape, annotation_text=annotation_text,
+        super().__init__(self._shape, annotation_text=self._annotation_text,
                          annotation_position=self._annotation_position,
                          coloring_value=coloring_value,
                          disabling_value=disabling_value)

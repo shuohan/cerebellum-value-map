@@ -20,7 +20,6 @@ class RightLobuleI2III(AnnotatedShape):
                 C((311.572, 38.661), (304.230, 43.927), (296.446, 46.707)),
                 Q((287.669, 49.841), (270.312, 47.819)))
     _annotation_text = 'Lobule I-III'
-    show_annotation = True
     
 
 class RightLobuleIV(AnnotatedShape):
@@ -36,7 +35,6 @@ class RightLobuleIV(AnnotatedShape):
                 C((319.403, 58.060), (311.974, 61.902), (303.006, 62.276)),
                 Q((289.661, 62.832), (270.312, 62.276)))
     _annotation_text = 'Lobule IV'
-    show_annotation = True
     
 
 class RightLobuleV(AnnotatedShape):
@@ -52,7 +50,6 @@ class RightLobuleV(AnnotatedShape):
                 C((326.737, 83.287), (315.500, 90.500), (299.500, 90.500)),
                 Q((289.500, 90.500), (270.312, 90.500)))
     _annotation_text = 'Lobule V'
-    show_annotation = True
 
 
 class RightLobuleVI(AnnotatedShape):
@@ -71,7 +68,6 @@ class RightLobuleVI(AnnotatedShape):
                 Q((301.619, 107.830), (302.041, 104.400)),
                 Q((302.648, 99.473), (300.365, 90.509)))
     _annotation_text = 'Lobule VI'
-    show_annotation = True
     
 
 class RightLobuleCrusI(AnnotatedShape):
@@ -89,7 +85,6 @@ class RightLobuleCrusI(AnnotatedShape):
                 Q((301.154, 132.519), (301.701, 129.606)),
                 Q((302.722, 124.156), (299.230, 113.775)))
     _annotation_text = 'Lobule Crus I'
-    show_annotation = True
 
 
 class RightLobuleCrusII(AnnotatedShape):
@@ -104,7 +99,6 @@ class RightLobuleCrusII(AnnotatedShape):
                 C((359.903, 164.027), (335.000, 166.000), (327.667, 165.333)),
                 Q((302.655, 163.060), (298.095, 160.306)))
     _annotation_text = 'Lobule Crus II'
-    show_annotation = True
 
 
 class RightLobuleVIIB(AnnotatedShape):
@@ -124,7 +118,6 @@ class RightLobuleVIIB(AnnotatedShape):
                 Q((301.302, 176.059), (301.701, 173.206)),
                 Q((302.370, 168.411), (298.095, 160.306)))
     _annotation_text = 'Lobule VIIB'
-    show_annotation = True
 
 
 class RightLobuleVIIIA(AnnotatedShape):
@@ -141,7 +134,6 @@ class RightLobuleVIIIA(AnnotatedShape):
                 Q((300.564, 190.080), (300.679, 187.852)),
                 Q((300.815, 185.209), (298.662, 180.735)))
     _annotation_text = 'Lobule VIIIA'
-    show_annotation = True
     
 
 class RightLobuleVIIIB(AnnotatedShape):
@@ -160,7 +152,6 @@ class RightLobuleVIIIB(AnnotatedShape):
                 Q((303.638, 203.404), (303.105, 200.959)),
                 Q((302.461, 198.006), (298.662, 193.786)))
     _annotation_text = 'Lobule VIIIB'
-    show_annotation = True
     
 
 class RightLobuleIX(AnnotatedShape):
@@ -178,7 +169,6 @@ class RightLobuleIX(AnnotatedShape):
                 Q((301.774, 231.783), (302.630, 228.808)),
                 Q((304.682, 221.680), (302.634, 207.973)))
     _annotation_text = 'Lobule IX'
-    show_annotation = True
     
 
 class RightLobuleX(AnnotatedShape):
@@ -196,7 +186,6 @@ class RightLobuleX(AnnotatedShape):
                 C((293.406, 287.904), (296.030, 277.828), (297.170, 272.885)),
                 C((299.198, 264.095), (299.699, 252.623), (299.230, 236.913)))
     _annotation_text = 'Lobule X'
-    show_annotation = True
     
 
 class VermisVI(AnnotatedShape):
@@ -209,7 +198,6 @@ class VermisVI(AnnotatedShape):
                 Q((239.005, 107.830), (238.583, 104.400)),
                 Q((237.976, 99.473), (240.259, 90.509)),
                 Q((251.124, 90.500), (270.312, 90.500)))
-    _annotation_text = 'Vermis VI'
     
 
 class VermisVII(AnnotatedShape):
@@ -229,7 +217,6 @@ class VermisVII(AnnotatedShape):
                 Q((239.470, 132.519), (238.923, 129.606)),
                 Q((237.902, 124.156), (241.394, 113.775)),
                 Q((252.055, 115.333), (270.312, 115.333)))
-    _annotation_text = 'Vermis VII'
     
 
 class VermisVIII(AnnotatedShape):
@@ -245,7 +232,6 @@ class VermisVIII(AnnotatedShape):
                 Q((238.163, 198.006), (241.962, 193.786)),
                 Q((240.060, 190.080), (239.945, 187.852)),
                 Q((239.809, 185.209), (241.962, 180.735)))
-    _annotation_text = 'Vermis VIII'
     
 
 class VermisIX(AnnotatedShape):
@@ -258,7 +244,6 @@ class VermisIX(AnnotatedShape):
                 Q((238.850, 231.783), (237.994, 228.808)),
                 Q((235.942, 221.680), (237.990, 207.973)),
                 Q((246.898, 209.923), (270.312, 208.667)))
-    _annotation_text = 'Vermis IX'
     
 
 class VermisX(AnnotatedShape):
@@ -273,7 +258,6 @@ class VermisX(AnnotatedShape):
                 C((250.535, 233.138), (260.174, 231.885), (270.312, 233.155)))
     _annotation_text = 'Vermis'
     _annotation_position = 'bottom'
-    show_annotation = True
 
 
 class LeftLobuleI2III(AnnotatedShape):
