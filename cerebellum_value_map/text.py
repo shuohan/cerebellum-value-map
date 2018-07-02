@@ -3,7 +3,7 @@
 from svgwrite.text import Text
 
 
-class Anotation(Text):
+class Annotation(Text):
     def __init__(self, text, position, shape):
         self.shape = shape
         super().__init__(text, **self._get_prop(position), stroke='none')

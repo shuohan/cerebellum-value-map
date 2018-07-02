@@ -4,7 +4,7 @@ import numpy as np
 from svgwrite.container import Group
 
 from .color import ColorConverter
-from .text import Value, Anotation
+from .text import Value, Annotation
 
 
 class Shape:
@@ -57,7 +57,7 @@ class AnnotatedShape(Group, Shape):
         color_converter = ColorConverter()
         color = color_converter.convert(coloring_value, disabling_value)
         value = Value(coloring_value, shape)
-        annotation = Anotation(annotation_text, annotation_position, shape)
+        annotation = Annotation(annotation_text, annotation_position, shape)
         self.add(shape.get_svg(fill=color)) 
         self.add(value)
         self.add(annotation)
