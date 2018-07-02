@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from .shape import FreeShape as FS
+from .shape import PathShape as PS
 from .shape import Move as M
 from .shape import Line as L
 from .shape import BezierCurve as C
 from .shape import QuadraticCurve as Q
-from .shape import CerebellarRegion
+from .shape import AnnotatedShape
 
 
-class RightLobuleI2III(CerebellarRegion):
-    _shape = FS(M((270.312, 20.869)),
+class RightLobuleI2III(AnnotatedShape):
+    _shape = PS(M((270.312, 20.869)),
                 Q((274.155, 14.277), (278.375, 11.375)),
                 C((290.669, 2.918), (307.091, 0.685), (319.875, 6.125)),
                 Q((323.261, 7.566), (328.125, 13.125)),
@@ -20,8 +20,8 @@ class RightLobuleI2III(CerebellarRegion):
     show_annotation = True
     
 
-class RightLobuleIV(CerebellarRegion):
-    _shape = FS(M((270.312, 47.819)),
+class RightLobuleIV(AnnotatedShape):
+    _shape = PS(M((270.312, 47.819)),
                 Q((287.669, 49.841), (296.446, 46.707)),
                 C((304.230, 43.927), (311.572, 38.661), (317.575, 31.694)),
                 Q((322.173, 26.358), (328.125, 13.125)),
@@ -36,8 +36,8 @@ class RightLobuleIV(CerebellarRegion):
     show_annotation = True
     
 
-class RightLobuleV(CerebellarRegion):
-    _shape = FS(M((270.312, 62.276)),
+class RightLobuleV(AnnotatedShape):
+    _shape = PS(M((270.312, 62.276)),
                 Q((289.661, 62.832), (303.006, 62.276)),
                 C((311.974, 61.902), (319.403, 58.060), (326.360, 52.267)),
                 C((331.535, 47.957), (334.798, 43.371), (338.036, 37.254)),
@@ -52,8 +52,8 @@ class RightLobuleV(CerebellarRegion):
     show_annotation = True
 
 
-class RightLobuleVI(CerebellarRegion):
-    _shape = FS(M((300.365, 90.509)),
+class RightLobuleVI(AnnotatedShape):
+    _shape = PS(M((300.365, 90.509)),
                 C((315.500, 90.500), (326.737, 83.287), (337.500, 72.833)),
                 C((346.692, 63.906), (352.819, 54.022), (355.167, 41.500)),
                 Q((358.167, 25.500), (358.500, 11.167)),
@@ -71,8 +71,8 @@ class RightLobuleVI(CerebellarRegion):
     show_annotation = True
     
 
-class RightLobuleCrusI(CerebellarRegion):
-    _shape = FS(M((299.230, 113.775)),
+class RightLobuleCrusI(AnnotatedShape):
+    _shape = PS(M((299.230, 113.775)),
                 C((303.721, 115.333), (316.500, 115.988), (333.210, 111.073)),
                 C((345.537, 107.448), (352.967, 100.677), (360.732, 93.544)),
                 Q((374.821, 80.602), (389.238, 51.277)),
@@ -89,8 +89,8 @@ class RightLobuleCrusI(CerebellarRegion):
     show_annotation = True
 
 
-class RightLobuleCrusII(CerebellarRegion):
-    _shape = FS(M((296.960, 136.473)),
+class RightLobuleCrusII(AnnotatedShape):
+    _shape = PS(M((296.960, 136.473)),
                 C((302.647, 136.347), (320.189, 129.816), (331.634, 129.189)),
                 C((357.758, 127.758), (385.671, 133.842), (400.344, 133.842)),
                 Q((415.374, 133.842), (435.250, 131.500)),
@@ -104,8 +104,8 @@ class RightLobuleCrusII(CerebellarRegion):
     show_annotation = True
 
 
-class RightLobuleVIIB(CerebellarRegion):
-    _shape = FS(M((298.095, 160.306)),
+class RightLobuleVIIB(AnnotatedShape):
+    _shape = PS(M((298.095, 160.306)),
                 Q((302.655, 163.060), (327.667, 165.333)),
                 C((335.000, 166.000), (359.903, 164.027), (377.000, 167.333)),
                 C((396.530, 171.110), (411.000, 184.667), (429.667, 187.333)),
@@ -124,8 +124,8 @@ class RightLobuleVIIB(CerebellarRegion):
     show_annotation = True
 
 
-class RightLobuleVIIIA(CerebellarRegion):
-    _shape = FS(M((298.662, 180.735)),
+class RightLobuleVIIIA(AnnotatedShape):
+    _shape = PS(M((298.662, 180.735)),
                 Q((308.746, 180.050), (329.000, 182.667)),
                 C((345.424, 184.789), (358.161, 186.543), (375.000, 192.667)),
                 Q((404.333, 203.333), (424.333, 217.333)),
@@ -141,8 +141,8 @@ class RightLobuleVIIIA(CerebellarRegion):
     show_annotation = True
     
 
-class RightLobuleVIIIB(CerebellarRegion):
-    _shape = FS(M((298.662, 193.786)),
+class RightLobuleVIIIB(AnnotatedShape):
+    _shape = PS(M((298.662, 193.786)),
                 Q((322.717, 191.925), (333.667, 193.333)),
                 C((348.065, 195.185), (360.885, 197.257), (373.000, 205.333)),
                 C((379.175, 209.450), (392.333, 226.000), (399.667, 232.667)),
@@ -160,8 +160,8 @@ class RightLobuleVIIIB(CerebellarRegion):
     show_annotation = True
     
 
-class RightLobuleIX(CerebellarRegion):
-    _shape = FS(M((302.634, 207.973)),
+class RightLobuleIX(AnnotatedShape):
+    _shape = PS(M((302.634, 207.973)),
                 C((313.698, 207.933), (320.046, 205.367), (327.126, 205.367)),
                 C((346.710, 205.367), (348.984, 208.214), (358.354, 213.836)),
                 C((368.354, 219.836), (373.133, 224.843), (377.409, 236.066)),
@@ -178,8 +178,8 @@ class RightLobuleIX(CerebellarRegion):
     show_annotation = True
     
 
-class RightLobuleX(CerebellarRegion):
-    _shape = FS(M((299.230, 236.913)),
+class RightLobuleX(AnnotatedShape):
+    _shape = PS(M((299.230, 236.913)),
                 C((303.394, 238.949), (310.570, 242.234), (317.667, 248.000)),
                 C((328.333, 256.667), (329.877, 272.283), (347.000, 279.333)),
                 Q((358.333, 284.000), (365.367, 283.327)),
@@ -196,8 +196,8 @@ class RightLobuleX(CerebellarRegion):
     show_annotation = True
     
 
-class VermisVI(CerebellarRegion):
-    _shape = FS(M((270.312, 90.500)),
+class VermisVI(AnnotatedShape):
+    _shape = PS(M((270.312, 90.500)),
                 Q((289.500, 90.500), (300.365, 90.509)),
                 Q((302.648, 99.473), (302.041, 104.400)),
                 Q((301.619, 107.830), (299.230, 113.775)),
@@ -209,8 +209,8 @@ class VermisVI(CerebellarRegion):
     _annotation_text = 'Vermis VI'
     
 
-class VermisVII(CerebellarRegion):
-    _shape = FS(M((270.312, 115.333)),
+class VermisVII(AnnotatedShape):
+    _shape = PS(M((270.312, 115.333)),
                 Q((288.569, 115.333), (299.230, 113.775)),
                 Q((302.722, 124.156), (301.701, 129.606)),
                 Q((301.154, 132.519), (296.960, 136.473)),
@@ -229,8 +229,8 @@ class VermisVII(CerebellarRegion):
     _annotation_text = 'Vermis VII'
     
 
-class VermisVIII(CerebellarRegion):
-    _shape = FS(M((270.312, 181.333)),
+class VermisVIII(AnnotatedShape):
+    _shape = PS(M((270.312, 181.333)),
                 L((298.662, 180.735)),
                 Q((300.815, 185.209), (300.679, 187.852)),
                 Q((300.564, 190.080), (298.662, 193.786)),
@@ -245,8 +245,8 @@ class VermisVIII(CerebellarRegion):
     _annotation_text = 'Vermis VIII'
     
 
-class VermisIX(CerebellarRegion):
-    _shape = FS(M((270.312, 208.667)),
+class VermisIX(AnnotatedShape):
+    _shape = PS(M((270.312, 208.667)),
                 Q((293.726, 209.923), (302.634, 207.973)),
                 Q((304.682, 221.680), (302.630, 228.808)),
                 Q((301.774, 231.783), (299.230, 236.913)),
@@ -258,8 +258,8 @@ class VermisIX(CerebellarRegion):
     _annotation_text = 'Vermis IX'
     
 
-class VermisX(CerebellarRegion):
-    _shape = FS(M((270.312, 233.155)),
+class VermisX(AnnotatedShape):
+    _shape = PS(M((270.312, 233.155)),
                 C((280.450, 231.885), (290.089, 233.138), (299.230, 236.913)),
                 C((299.699, 252.623), (299.198, 264.095), (297.170, 272.885)),
                 C((296.030, 277.828), (293.406, 287.904), (287.880, 292.523)),
@@ -273,45 +273,45 @@ class VermisX(CerebellarRegion):
     show_annotation = True
 
 
-class LeftLobuleI2III(CerebellarRegion):
-    _shape = RightLobuleI2III._shape.flip(CerebellarRegion.axis)
+class LeftLobuleI2III(AnnotatedShape):
+    _shape = RightLobuleI2III._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleIV(CerebellarRegion):
-    _shape = RightLobuleIV._shape.flip(CerebellarRegion.axis)
+class LeftLobuleIV(AnnotatedShape):
+    _shape = RightLobuleIV._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleV(CerebellarRegion):
-    _shape = RightLobuleV._shape.flip(CerebellarRegion.axis)
+class LeftLobuleV(AnnotatedShape):
+    _shape = RightLobuleV._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleVI(CerebellarRegion):
-    _shape = RightLobuleVI._shape.flip(CerebellarRegion.axis)
+class LeftLobuleVI(AnnotatedShape):
+    _shape = RightLobuleVI._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleCrusI(CerebellarRegion):
-    _shape = RightLobuleCrusI._shape.flip(CerebellarRegion.axis)
+class LeftLobuleCrusI(AnnotatedShape):
+    _shape = RightLobuleCrusI._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleCrusII(CerebellarRegion):
-    _shape = RightLobuleCrusII._shape.flip(CerebellarRegion.axis)
+class LeftLobuleCrusII(AnnotatedShape):
+    _shape = RightLobuleCrusII._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleVIIB(CerebellarRegion):
-    _shape = RightLobuleVIIB._shape.flip(CerebellarRegion.axis)
+class LeftLobuleVIIB(AnnotatedShape):
+    _shape = RightLobuleVIIB._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleVIIIA(CerebellarRegion):
-    _shape = RightLobuleVIIIA._shape.flip(CerebellarRegion.axis)
+class LeftLobuleVIIIA(AnnotatedShape):
+    _shape = RightLobuleVIIIA._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleVIIIB(CerebellarRegion):
-    _shape = RightLobuleVIIIB._shape.flip(CerebellarRegion.axis)
+class LeftLobuleVIIIB(AnnotatedShape):
+    _shape = RightLobuleVIIIB._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleIX(CerebellarRegion):
-    _shape = RightLobuleIX._shape.flip(CerebellarRegion.axis)
+class LeftLobuleIX(AnnotatedShape):
+    _shape = RightLobuleIX._shape.flip(AnnotatedShape.axis)
 
 
-class LeftLobuleX(CerebellarRegion):
-    _shape = RightLobuleX._shape.flip(CerebellarRegion.axis)
+class LeftLobuleX(AnnotatedShape):
+    _shape = RightLobuleX._shape.flip(AnnotatedShape.axis)

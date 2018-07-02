@@ -45,7 +45,7 @@ class Shape:
         raise NotImplementedError
 
 
-class FreeShape(Shape, PathCode):
+class PathShape(Shape, PathCode):
 
     def __init__(self, *codes, close=True):
         self.codes = list(codes)
@@ -73,14 +73,14 @@ class FreeShape(Shape, PathCode):
         flipped_codes = list()
         for code in self.codes:
             flipped_codes.append(code.flip(axis_x))
-        return FreeShape(*flipped_codes, close=self.close)
+        return self.__class__(*flipped_codes, close=self.close)
 
     def translate(self, x, y):
         codes = [code.translate(x, y) for code in self.codes]
-        return FreeShape(*codes, close=self.close)
+        return self.__class__(*codes, close=self.close)
 
 
-class AnnotatedShape(Group, Shape):
+class AnnotatedShape_(Group, Shape):
 
     def __init__(self, shape, annotation_text='', annotation_position='right',
                  coloring_value=0, disabling_value=-float('inf')):
@@ -100,7 +100,7 @@ class AnnotatedShape(Group, Shape):
         self.add(annotation)
 
 
-class CerebellarRegion(AnnotatedShape):
+class AnnotatedShape(AnnotatedShape_):
 
     axis = 270.312
     show_annotation = False
