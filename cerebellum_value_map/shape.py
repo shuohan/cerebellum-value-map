@@ -9,8 +9,8 @@ from .text import Value, Anotation
 
 
 class Shape:
-
-    def get_svg(self):
+    
+    def get_svg(self, **kwargs):
         raise NotImplementedError
 
     @property
@@ -37,7 +37,7 @@ class Shape:
     def v_center(self):
         return (self.up + self.bottom) / 2
 
-    def left_right_flip(self, axis_x):
+    def flip(self, axis):
         raise NotImplementedError
 
     def translate(self, x, y):
@@ -63,9 +63,9 @@ class AnotatedShape(Group, Shape):
         self.add(value)
         self.add(anotation)
 
-    def left_right_flip(self, axis_x):
-        flipped_shape = self.shape.left_right_flip(axis_x)
-        return AnotatedShape(flipped_shape, self.anotation_text,
+    def flip(self, axis):
+        shape = self.shape.flip(axis)
+        return AnotatedShape(shape, self.anotation_text,
                              self.anotation_position, self.coloring_value,
                              self.disabling_value)
 

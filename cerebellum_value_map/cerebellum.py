@@ -10,7 +10,7 @@ from .shape import AnotatedShape
 
 class CerebellarRegion(AnotatedShape):
 
-    axis_x = 270.312
+    axis = 270.312
     _shape = None
     _anotation_text = ''
     _anotation_position = 'right'
@@ -21,9 +21,9 @@ class CerebellarRegion(AnotatedShape):
                          coloring_value=coloring_value,
                          disabling_value=disabling_value)
 
-    def left_right_flip(self, coloring_value=0,
+    def flip(self, coloring_value=0,
                             disabling_value=-float('inf')):
-        flipped = self.shape.left_right_flip(self.axis_x)
+        flipped = self.shape.flip(self.axis)
         anotation_text = self.anotation_text
         anotation_position = self.anotation_position
         if 'R' in anotation_text:
@@ -277,44 +277,44 @@ class VermisX(CerebellarRegion):
 
 
 class LeftLobuleI2III(CerebellarRegion):
-    _shape = RightLobuleI2III._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleI2III._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleIV(CerebellarRegion):
-    _shape = RightLobuleIV._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleIV._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleV(CerebellarRegion):
-    _shape = RightLobuleV._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleV._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleVI(CerebellarRegion):
-    _shape = RightLobuleVI._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleVI._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleCrusI(CerebellarRegion):
-    _shape = RightLobuleCrusI._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleCrusI._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleCrusII(CerebellarRegion):
-    _shape = RightLobuleCrusII._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleCrusII._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleVIIB(CerebellarRegion):
-    _shape = RightLobuleVIIB._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleVIIB._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleVIIIA(CerebellarRegion):
-    _shape = RightLobuleVIIIA._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleVIIIA._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleVIIIB(CerebellarRegion):
-    _shape = RightLobuleVIIIB._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleVIIIB._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleIX(CerebellarRegion):
-    _shape = RightLobuleIX._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleIX._shape.flip(CerebellarRegion.axis)
 
 
 class LeftLobuleX(CerebellarRegion):
-    _shape = RightLobuleX._shape.left_right_flip(CerebellarRegion.axis_x)
+    _shape = RightLobuleX._shape.flip(CerebellarRegion.axis)
