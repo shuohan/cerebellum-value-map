@@ -61,15 +61,3 @@ class AnotatedShape(Group, Shape):
         self.add(shape.get_svg(fill=color)) 
         self.add(value)
         self.add(anotation)
-
-    def flip(self, axis):
-        shape = self.shape.flip(axis)
-        return AnotatedShape(shape, self.anotation_text,
-                             self.anotation_position, self.coloring_value,
-                             self.disabling_value)
-
-    def translate(self, x, y):
-        shape = self.shape.translate(x, y)
-        return AnotatedShape(shape, self.anotation_text,
-                             self.anotation_position, self.coloring_value,
-                             self.disabling_value)

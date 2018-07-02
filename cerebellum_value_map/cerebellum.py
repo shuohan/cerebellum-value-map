@@ -21,24 +21,6 @@ class CerebellarRegion(AnotatedShape):
                          coloring_value=coloring_value,
                          disabling_value=disabling_value)
 
-    def flip(self, coloring_value=0,
-                            disabling_value=-float('inf')):
-        flipped = self.shape.flip(self.axis)
-        anotation_text = self.anotation_text
-        anotation_position = self.anotation_position
-        if 'R' in anotation_text:
-            anotation_text = anotation_text.replace('R', 'L')
-        elif 'L' in self.anotation_text:
-            anotation_text = anotation_text.replace('L', 'R')
-        if 'right' in anotation_position:
-            anotation_position = 'left'
-        elif 'left' in anotation_position:
-            anotation_position = 'right'
-        return AnotatedShape(flipped, anotation_text=anotation_text,
-                             anotation_position=anotation_position,
-                             coloring_value=coloring_value,
-                             disabling_value=disabling_value)
-
 
 class RightLobuleI2III(CerebellarRegion):
     _shape = FS(M((270.312, 20.869)),
