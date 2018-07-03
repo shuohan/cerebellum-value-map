@@ -110,7 +110,6 @@ class AnnotatedShape(AnnotatedShape_):
     _annotation_position = 'right'
 
     def __init__(self, coloring_value=0, disabling_value=-float('inf')):
-        self._shape = self._shape.translate(0, 50)
         super().__init__(self._shape, annotation_text=self._annotation_text,
                          annotation_position=self._annotation_position,
                          coloring_value=coloring_value,
