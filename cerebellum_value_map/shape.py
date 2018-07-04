@@ -87,19 +87,25 @@ class PathShape(Shape, PathCode):
 class AnnotatedShape_(Shape):
 
     def __init__(self, shape, annotation_text='', annotation_position='right',
-                 coloring_value=0, disabling_value=-float('inf')):
+                 coloring_value=0, disabling_value=-float('inf'),
+                 show_color=False):
         super().__init__()
         color_converter = ColorConverter()
         self.shape = shape
         self.color = color_converter.convert(coloring_value, disabling_value)
-        self.annot = Annotation(annotation_text, annotation_position, shape)
-        self.value = Value(coloring_value, shape)
+        self.annotation_text = annotation_text
+        self.annotation_position = annotation_position
+        self.coloring_value = coloring_value
+        self.show_color = show_color
 
     def get_svg(self, **kwargs):
         group = Group(**kwargs)
         group.add(self.shape.get_svg(fill=self.color))
-        group.add(self.value)
-        group.add(self.annot)
+        if len(self.annotation_text) > 0:
+            group.add(Annotation(self.annotation_text, self.annotation_position,
+                                 self.shape))
+        if self.show_color:
+            group.add(Value(self.coloring_value, self.shape))
         return group
 
 
@@ -109,8 +115,10 @@ class AnnotatedShape(AnnotatedShape_):
     _annotation_text = ''
     _annotation_position = 'right'
 
-    def __init__(self, coloring_value=0, disabling_value=-float('inf')):
+    def __init__(self, coloring_value=0, disabling_value=-float('inf'),
+                 show_color=False):
         super().__init__(self._shape, annotation_text=self._annotation_text,
                          annotation_position=self._annotation_position,
                          coloring_value=coloring_value,
-                         disabling_value=disabling_value)
+                         disabling_value=disabling_value,
+                         show_color=show_color)

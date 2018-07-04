@@ -22,13 +22,14 @@ class CerebellumValueMap:
                'left_lobule_x': LeftLobuleX,
                'vermis': Vermis}
 
-    def __init__(self, data, output_filename, font_size=12, stroke='black',
-                 stroke_width=2, size=(600, 400)):
+    def __init__(self, data, output_filename, show_color=False,
+                 font_size=12, stroke='black', stroke_width=2, size=(600, 400)):
         drawing = Drawing(output_filename, size=[str(num) for num in size],
                           stroke=stroke, stroke_width=stroke_width,
                           font_size=font_size)
         for index, values in data.iterrows():
             region = self.regions[index](coloring_value=values['color'],
-                                         disabling_value=values['disable'])
+                                         disabling_value=values['disable'],
+                                         show_color=show_color)
             drawing.add(region.get_svg())
         drawing.save(pretty=True)

@@ -16,4 +16,4 @@ index = ['right_anterior_lobe', 'left_anterior_lobe',
          'right_lobule_x', 'left_lobule_x', 'vermis']
 df = pd.DataFrame(data, index=index)
 
-CerebellumValueMap(df, 'test.svg')
+CerebellumValueMap(df, 'test.svg', show_color=False)
