@@ -48,13 +48,14 @@ class CerebellumValueMapLobe(CerebellumValueMap):
 
     regions = {'right_anterior_lobe': RightAnteriorLobe,
                'left_anterior_lobe': LeftAnteriorLobe,
-               'right_superioer_posterior_lobe': RightSuperiorPosteriorLobe,
+               'right_superior_posterior_lobe': RightSuperiorPosteriorLobe,
                'left_superior_posterior_lobe': LeftSuperiorPosteriorLobe,
                'right_inferior_posterior_lobe': RightInferiorPosteriorLobe,
                'left_inferior_posterior_lobe': LeftInferiorPosteriorLobe,
                'right_lobule_x': RightLobuleX,
                'left_lobule_x': LeftLobuleX,
-               'vermis': Vermis}
+               'vermis': Vermis,
+               'corpus_medullare': CorpusMedullare}
 
 
 class CerebellumValueMapLobule(CerebellumValueMap):
