@@ -1,7 +1,7 @@
 region,color,disable,sign
 right_anterior_lobe,1,0,1
 left_anterior_lobe,0.1,0,20
-right_superioer_posterior_lobe,0.04,0,-1.5
+right_superior_posterior_lobe,0.04,0,-1.5
 left_superior_posterior_lobe,0.02,0,100
 right_inferior_posterior_lobe,0.009,0,-12
 left_inferior_posterior_lobe,0.004,0,8.9
