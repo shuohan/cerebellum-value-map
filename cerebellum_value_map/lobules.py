@@ -20,7 +20,7 @@ class RightLobuleI2III(AnnotatedShape):
                 Q((322.173, 76.358), (317.575, 81.694)),
                 C((311.572, 88.661), (304.230, 93.927), (296.446, 96.707)),
                 Q((287.669, 99.841), (270.312, 97.819)))
-    _annotation_text = 'Lobule I-III'
+    # _annotation_text = 'Lobule I-III'
     
 
 class RightLobuleIV(AnnotatedShape):
@@ -35,7 +35,7 @@ class RightLobuleIV(AnnotatedShape):
                 C((334.798, 93.371), (331.535, 97.957), (326.360, 102.267)),
                 C((319.403, 108.060), (311.974, 111.902), (303.006, 112.276)),
                 Q((289.661, 112.832), (270.312, 112.276)))
-    _annotation_text = 'Lobule IV'
+    # _annotation_text = 'Lobule IV'
     
 
 class RightLobuleV(AnnotatedShape):
@@ -50,7 +50,7 @@ class RightLobuleV(AnnotatedShape):
                 C((352.819, 104.022), (346.692, 113.906), (337.500, 122.833)),
                 C((326.737, 133.287), (315.500, 140.500), (299.500, 140.500)),
                 Q((289.500, 140.500), (270.312, 140.500)))
-    _annotation_text = 'Lobule V'
+    # _annotation_text = 'Lobule V'
 
 
 class RightLobuleVI(AnnotatedShape):
@@ -68,7 +68,7 @@ class RightLobuleVI(AnnotatedShape):
                 C((316.500, 165.988), (303.721, 165.333), (298.479, 165.333)),
                 Q((301.619, 157.830), (302.041, 154.400)),
                 Q((302.648, 149.473), (300.365, 140.509)))
-    _annotation_text = 'Lobule VI'
+    # _annotation_text = 'Lobule VI'
     
 
 class RightLobuleCrusI(AnnotatedShape):
@@ -85,7 +85,7 @@ class RightLobuleCrusI(AnnotatedShape):
                 C((320.189, 179.816), (302.647, 186.347), (296.742, 186.347)),
                 Q((301.154, 182.519), (301.701, 179.606)),
                 Q((302.722, 174.156), (299.230, 163.775)))
-    _annotation_text = 'Lobule Crus I'
+    # _annotation_text = 'Lobule Crus I'
 
 
 class RightLobuleCrusII(AnnotatedShape):
@@ -99,7 +99,7 @@ class RightLobuleCrusII(AnnotatedShape):
                 C((411.000, 234.667), (396.530, 221.110), (377.000, 217.333)),
                 C((359.903, 214.027), (335.000, 216.000), (327.667, 215.333)),
                 Q((302.655, 213.060), (298.095, 210.306)))
-    _annotation_text = 'Lobule Crus II'
+    # _annotation_text = 'Lobule Crus II'
 
 
 class RightLobuleVIIB(AnnotatedShape):
@@ -118,7 +118,7 @@ class RightLobuleVIIB(AnnotatedShape):
                 Q((308.746, 230.050), (298.662, 230.735)),
                 Q((301.302, 226.059), (301.701, 223.206)),
                 Q((302.370, 218.411), (298.095, 210.306)))
-    _annotation_text = 'Lobule VIIB'
+    # _annotation_text = 'Lobule VIIB'
 
 
 class RightLobuleVIIIA(AnnotatedShape):
@@ -134,7 +134,7 @@ class RightLobuleVIIIA(AnnotatedShape):
                 Q((322.717, 241.925), (298.662, 243.786)),
                 Q((300.564, 240.080), (300.679, 237.852)),
                 Q((300.815, 235.209), (298.662, 230.735)))
-    _annotation_text = 'Lobule VIIIA'
+    # _annotation_text = 'Lobule VIIIA'
     
 
 class RightLobuleVIIIB(AnnotatedShape):
@@ -152,7 +152,7 @@ class RightLobuleVIIIB(AnnotatedShape):
                 C((320.046, 255.367), (313.698, 257.933), (302.634, 257.973)),
                 Q((303.638, 253.404), (303.105, 250.959)),
                 Q((302.461, 248.006), (298.662, 243.786)))
-    _annotation_text = 'Lobule VIIIB'
+    # _annotation_text = 'Lobule VIIIB'
     
 
 class RightLobuleIX(AnnotatedShape):
@@ -169,7 +169,7 @@ class RightLobuleIX(AnnotatedShape):
                 C((310.570, 292.234), (303.394, 288.949), (299.230, 286.913)),
                 Q((301.774, 281.783), (302.630, 278.808)),
                 Q((304.682, 271.680), (302.634, 257.973)))
-    _annotation_text = 'Lobule IX'
+    # _annotation_text = 'Lobule IX'
     
 
 class RightLobuleX(AnnotatedShape):
@@ -186,7 +186,7 @@ class RightLobuleX(AnnotatedShape):
                 C((290.849, 336.860), (289.315, 343.507), (287.880, 342.523)),
                 C((293.406, 337.904), (296.030, 327.828), (297.170, 322.885)),
                 C((299.198, 314.095), (299.699, 302.623), (299.230, 286.913)))
-    _annotation_text = ''
+    # _annotation_text = ''
     
 
 class VermisVI(AnnotatedShape):
@@ -257,8 +257,8 @@ class VermisX(AnnotatedShape):
                 C((247.218, 337.904), (244.594, 327.828), (243.454, 322.885)),
                 C((241.426, 314.095), (240.925, 302.623), (241.394, 286.913)),
                 C((250.535, 283.138), (260.174, 281.885), (270.312, 283.155)))
-    _annotation_text = 'Vermis'
-    _annotation_position = 'bottom'
+    # _annotation_text = 'Vermis'
+    # _annotation_position = 'bottom'
 
 
 class LeftLobuleI2III(AnnotatedShape):
