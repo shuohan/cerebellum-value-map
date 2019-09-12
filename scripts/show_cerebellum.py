@@ -18,7 +18,7 @@ import numpy as np
 from cerebellum_value_map.color import ColorConverter
 
 
-def convert_pval(pval, sign):
+def convert_pval(pval, sign, rev=True):
     if pval > 0.05:
         result = 0
     elif pval > 0.01:
@@ -28,6 +28,8 @@ def convert_pval(pval, sign):
     else:
         result = 3
     result *= np.sign(sign)
+    if rev:
+        result *= -1
     return result
     
 data = pd.read_csv(args.input_data, index_col=0)
