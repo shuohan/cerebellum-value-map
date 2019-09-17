@@ -96,6 +96,7 @@ class AnnotatedShape_(Shape):
         self.annotation_text = annotation_text
         self.annotation_position = annotation_position
         self.coloring_value = coloring_value
+        self.disabling_value = disabling_value
         self.show_color = show_color
 
     def get_svg(self, **kwargs):
@@ -107,6 +108,16 @@ class AnnotatedShape_(Shape):
         if self.show_color:
             group.add(Value(self.coloring_value, self.shape))
         return group
+
+    @property
+    def points(self):
+        return self.shape.points
+
+    def translate(self, x, y):
+        shape = self.shape.translate(x, y)
+        return self.__class__(shape, self.annotation_text,
+                              self.annotation_position, self.coloring_value,
+                              self.disabling_value, self.show_color)
 
 
 class AnnotatedShape(AnnotatedShape_):
@@ -122,3 +133,8 @@ class AnnotatedShape(AnnotatedShape_):
                          coloring_value=coloring_value,
                          disabling_value=disabling_value,
                          show_color=show_color)
+
+    def translate(self, x, y):
+        self.__class__._shape = self.shape.translate(x, y)
+        return self.__class__(self.coloring_value, self.disabling_value,
+                              self.show_color)

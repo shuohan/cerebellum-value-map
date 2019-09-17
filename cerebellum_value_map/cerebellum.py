@@ -7,12 +7,12 @@ from .lobes import RightInferiorPosteriorLobe, Vermis
 from .lobes import LeftAnteriorLobe, LeftSuperiorPosteriorLobe
 from .lobes import LeftInferiorPosteriorLobe
 from .lobules import CorpusMedullare
-from .lobules import RightLobuleI2III, LeftLobuleI2III
+from .lobules import RightLobulesI2III, LeftLobulesI2III
 from .lobules import RightLobuleIV, LeftLobuleIV
 from .lobules import RightLobuleV, LeftLobuleV
 from .lobules import RightLobuleVI, LeftLobuleVI
-from .lobules import RightLobuleCrusI, LeftLobuleCrusI
-from .lobules import RightLobuleCrusII, LeftLobuleCrusII
+from .lobules import RightCrusI, LeftCrusI
+from .lobules import RightCrusII, LeftCrusII
 from .lobules import RightLobuleVIIB, LeftLobuleVIIB
 from .lobules import RightLobuleVIIIA, LeftLobuleVIIIA
 from .lobules import RightLobuleVIIIB, LeftLobuleVIIIB
@@ -24,67 +24,70 @@ from .lobules import VermisVIII
 from .lobules import VermisIX
 from .lobules import VermisX
 
-# from .color import Stripe
+
+def create(name, coloring_value=0, disabling_value=float('-inf'),
+           show_color=False):
+    name = ''.join([n[0].upper()+n[1:].replace('-', '2')
+                    for n in name.split('_')])
+    region = eval(name)(coloring_value, disabling_value, show_color)
+    return region
 
 
 class CerebellumValueMap:
 
-    regions = dict()
+    def __init__(self, data, output_filename, show_color=False, font_size=12,
+                 stroke='black', stroke_width=2, size=(550, 450)):
+        self.data = data
+        self.output_filename = output_filename
+        self.show_color = show_color
+        self.font_size = font_size
+        self.stroke = stroke
+        self.stroke_width = stroke_width
+        self.size = size
+        self.drawing = None
+        self.regions = self._get_regions()
 
-    def __init__(self, data, output_filename, show_color=False,
-                 font_size=12, stroke='black', stroke_width=2, size=(550, 450)):
-        drawing = Drawing(output_filename, size=[str(num) for num in size],
-                          stroke=stroke, stroke_width=stroke_width,
-                          font_size=font_size)
-        for index, values in data.iterrows():
-            region = self.regions[index](coloring_value=values['color'],
-                                         disabling_value=values['disable'],
-                                         show_color=show_color)
-            drawing.add(region.get_svg())
-        drawing.save(pretty=True)
+    @property
+    def size(self):
+        return tuple(int(num) for num in self._size)
 
+    @size.setter
+    def size(self, size):
+        self._size = tuple(str(num) for num in size)
 
-class CerebellumValueMapLobe(CerebellumValueMap):
+    def _get_regions(self):
+        regions = list()
+        for index, values in self.data.iterrows():
+            regions.append(create(index, coloring_value=values['color'],
+                                  disabling_value=values['disable'],
+                                  show_color=self.show_color))
+        return regions
 
-    regions = {'right_anterior_lobe': RightAnteriorLobe,
-               'left_anterior_lobe': LeftAnteriorLobe,
-               'right_superior_posterior_lobe': RightSuperiorPosteriorLobe,
-               'left_superior_posterior_lobe': LeftSuperiorPosteriorLobe,
-               'right_inferior_posterior_lobe': RightInferiorPosteriorLobe,
-               'left_inferior_posterior_lobe': LeftInferiorPosteriorLobe,
-               'right_lobule_x': RightLobuleX,
-               'left_lobule_x': LeftLobuleX,
-               'vermis': Vermis,
-               'corpus_medullare': CorpusMedullare}
+    def translate(self, x, y):
+        self.regions = [r.translate(x, y) for r in self.regions]
 
+    @property
+    def left(self):
+        return min(region.left for region in self.regions)
 
-class CerebellumValueMapLobule(CerebellumValueMap):
+    @property
+    def right(self):
+        return max(region.right for region in self.regions)
 
-    regions = {'Right_Lobules_I-III': RightLobuleI2III,
-               'Left_Lobules_I-III': LeftLobuleI2III,
-               'Right_Lobule_IV': RightLobuleIV,
-               'Left_Lobule_IV': LeftLobuleIV,
-               'Right_Lobule_V': RightLobuleV,
-               'Left_Lobule_V': LeftLobuleV,
-               'Right_Lobule_VI': RightLobuleVI,
-               'Left_Lobule_VI': LeftLobuleVI,
-               'Right_Crus_I': RightLobuleCrusI,
-               'Left_Crus_I': LeftLobuleCrusI,
-               'Right_Crus_II': RightLobuleCrusII,
-               'Left_Crus_II': LeftLobuleCrusII,
-               'Right_Lobule_VIIB': RightLobuleVIIB,
-               'Left_Lobule_VIIB': LeftLobuleVIIB,
-               'Right_Lobule_VIIIA': RightLobuleVIIIA,
-               'Left_Lobule_VIIIA': LeftLobuleVIIIA,
-               'Right_Lobule_VIIIB': RightLobuleVIIIB,
-               'Left_Lobule_VIIIB': LeftLobuleVIIIB,
-               'Right_Lobule_IX': RightLobuleIX,
-               'Left_Lobule_IX': LeftLobuleIX,
-               'Right_Lobule_X': RightLobuleX,
-               'Left_Lobule_X': LeftLobuleX,
-               'Vermis_VI': VermisVI,
-               'Vermis_VII': VermisVII,
-               'Vermis_VIII': VermisVIII,
-               'Vermis_IX': VermisIX,
-               'Vermis_X': VermisX,
-               'Corpus_medullare': CorpusMedullare}
+    @property
+    def up(self):
+        return min(region.up for region in self.regions)
+
+    @property
+    def bottom(self):
+        return max(region.bottom for region in self.regions)
+
+    def save(self):
+        self.drawing = Drawing(self.output_filename,
+                               size=self._size,
+                               stroke=self.stroke,
+                               stroke_width=self.stroke_width,
+                               font_size=self.font_size)
+        for region in self.regions:
+            self.drawing.add(region.get_svg())
+        self.drawing.save(pretty=True)

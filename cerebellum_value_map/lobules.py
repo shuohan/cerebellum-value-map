@@ -12,7 +12,7 @@ from .shape import AnnotatedShape
 axis = 270.312
 
 
-class RightLobuleI2III(AnnotatedShape):
+class RightLobulesI2III(AnnotatedShape):
     _shape = PS(M((270.312, 70.869)),
                 Q((274.155, 64.277), (278.375, 61.375)),
                 C((290.669, 52.918), (307.091, 50.685), (319.875, 56.125)),
@@ -71,7 +71,7 @@ class RightLobuleVI(AnnotatedShape):
     # _annotation_text = 'Lobule VI'
     
 
-class RightLobuleCrusI(AnnotatedShape):
+class RightCrusI(AnnotatedShape):
     _shape = PS(M((299.230, 163.775)),
                 C((303.721, 165.333), (316.500, 165.988), (333.210, 161.073)),
                 C((345.537, 157.448), (352.967, 150.677), (360.732, 143.544)),
@@ -88,7 +88,7 @@ class RightLobuleCrusI(AnnotatedShape):
     # _annotation_text = 'Lobule Crus I'
 
 
-class RightLobuleCrusII(AnnotatedShape):
+class RightCrusII(AnnotatedShape):
     _shape = PS(M((296.960, 186.473)),
                 C((302.647, 186.347), (320.189, 179.816), (331.634, 179.189)),
                 C((357.758, 177.758), (385.671, 183.842), (400.344, 183.842)),
@@ -261,8 +261,8 @@ class VermisX(AnnotatedShape):
     # _annotation_position = 'bottom'
 
 
-class LeftLobuleI2III(AnnotatedShape):
-    _shape = RightLobuleI2III._shape.flip(axis)
+class LeftLobulesI2III(AnnotatedShape):
+    _shape = RightLobulesI2III._shape.flip(axis)
 
 
 class LeftLobuleIV(AnnotatedShape):
@@ -277,12 +277,12 @@ class LeftLobuleVI(AnnotatedShape):
     _shape = RightLobuleVI._shape.flip(axis)
 
 
-class LeftLobuleCrusI(AnnotatedShape):
-    _shape = RightLobuleCrusI._shape.flip(axis)
+class LeftCrusI(AnnotatedShape):
+    _shape = RightCrusI._shape.flip(axis)
 
 
-class LeftLobuleCrusII(AnnotatedShape):
-    _shape = RightLobuleCrusII._shape.flip(axis)
+class LeftCrusII(AnnotatedShape):
+    _shape = RightCrusII._shape.flip(axis)
 
 
 class LeftLobuleVIIB(AnnotatedShape):
