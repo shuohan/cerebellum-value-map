@@ -23,6 +23,10 @@ class PathCode:
         points = [(p[0] + x, p[1] + y)  for p in self.points]
         return self.__class__(*points)
 
+    def scale(self, f):
+        points = [(p[0] * f, p[1] * f) for p in self.points]
+        return self.__class__(*points)
+
 
 class Move(PathCode):
     command = 'M'

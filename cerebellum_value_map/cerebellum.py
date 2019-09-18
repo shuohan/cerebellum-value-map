@@ -66,6 +66,9 @@ class CerebellumValueMap:
     def translate(self, x, y):
         self.regions = [r.translate(x, y) for r in self.regions]
 
+    def scale(self, f):
+        self.regions = [r.scale(f) for r in self.regions]
+
     @property
     def left(self):
         return min(region.left for region in self.regions)

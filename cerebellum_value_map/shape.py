@@ -48,6 +48,9 @@ class Shape:
     def translate(self, x, y):
         raise NotImplementedError
 
+    def scale(self, f):
+        raise NotImplementedError
+
 
 class PathShape(Shape, PathCode):
 
@@ -81,6 +84,10 @@ class PathShape(Shape, PathCode):
 
     def translate(self, x, y):
         codes = [code.translate(x, y) for code in self.codes]
+        return self.__class__(*codes, close=self.close)
+
+    def scale(self, f):
+        codes = [code.scale(f) for code in self.codes]
         return self.__class__(*codes, close=self.close)
 
 
@@ -119,6 +126,12 @@ class AnnotatedShape_(Shape):
                               self.annotation_position, self.coloring_value,
                               self.disabling_value, self.show_color)
 
+    def scale(self, f):
+        shape = self.shape.scale(f)
+        return self.__class__(shape, self.annotation_text,
+                              self.annotation_position, self.coloring_value,
+                              self.disabling_value, self.show_color)
+
 
 class AnnotatedShape(AnnotatedShape_):
 
@@ -136,5 +149,10 @@ class AnnotatedShape(AnnotatedShape_):
 
     def translate(self, x, y):
         self.__class__._shape = self.shape.translate(x, y)
+        return self.__class__(self.coloring_value, self.disabling_value,
+                              self.show_color)
+
+    def scale(self, f):
+        self.__class__._shape = self.shape.scale(f)
         return self.__class__(self.coloring_value, self.disabling_value,
                               self.show_color)

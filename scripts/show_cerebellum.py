@@ -57,8 +57,9 @@ if args.is_pvalue_mode:
                                                data.at[index, 'sign'])
 
 map = CerebellumValueMap(data, args.output_svg, stroke_width=1)
-map.size = (373, 366)
+map.size = (75, 73)
 map.translate(-84, -50)
+map.scale(0.20)
 print(map.left)
 print(map.right)
 print(map.up)
