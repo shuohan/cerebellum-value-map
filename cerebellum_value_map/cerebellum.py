@@ -26,17 +26,18 @@ from .lobules import VermisX
 
 
 def create(name, coloring_value=0, disabling_value=float('-inf'),
-           show_color=False):
+           show_color=False, label_map=False):
     name = ''.join([n[0].upper()+n[1:].replace('-', '2')
                     for n in name.split('_')])
-    region = eval(name)(coloring_value, disabling_value, show_color)
+    region = eval(name)(coloring_value, disabling_value, show_color, label_map)
     return region
 
 
 class CerebellumValueMap:
 
     def __init__(self, data, output_filename, show_color=False, font_size=12,
-                 stroke='black', stroke_width=2, size=(550, 450)):
+                 stroke='black', stroke_width=2, size=(550, 450),
+                 label_map=False):
         self.data = data
         self.output_filename = output_filename
         self.show_color = show_color
@@ -45,6 +46,7 @@ class CerebellumValueMap:
         self.stroke_width = stroke_width
         self.size = size
         self.drawing = None
+        self.label_map = label_map
         self.regions = self._get_regions()
 
     @property
@@ -60,7 +62,8 @@ class CerebellumValueMap:
         for index, values in self.data.iterrows():
             regions.append(create(index, coloring_value=values['color'],
                                   disabling_value=values['disable'],
-                                  show_color=self.show_color))
+                                  show_color=self.show_color,
+                                  label_map=self.label_map))
         return regions
 
     def translate(self, x, y):

@@ -8,6 +8,7 @@ parser.add_argument('-i', '--input-data')
 parser.add_argument('-o', '--output-svg')
 parser.add_argument('-p', '--is-pvalue-mode', default=False,
                     action='store_true')
+parser.add_argument('-l', '--label-map', default=False, action='store_true')
 
 args = parser.parse_args()
 
@@ -56,7 +57,8 @@ if args.is_pvalue_mode:
         data.at[index, 'color'] = convert_pval(data.at[index, 'color'],
                                                data.at[index, 'sign'])
 
-map = CerebellumValueMap(data, args.output_svg, stroke_width=1)
+map = CerebellumValueMap(data, args.output_svg, stroke_width=1,
+                         label_map=args.label_map)
 map.size = (75, 73)
 map.translate(-84, -50)
 map.scale(0.20)

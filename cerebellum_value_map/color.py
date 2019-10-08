@@ -19,12 +19,74 @@ class ColorConverter(metaclass=Singleton):
         self.colormap = ScalarMappable(norm, cmap=colormap)
 
     def convert(self, color_value, disabling_value=-float('inf')):
-        if  disabling_value <= self.max_disabling_value:
+        if disabling_value <= self.max_disabling_value:
             color = self.colormap.to_rgba(color_value, bytes=True)[:3]
             result = 'rgb(%s)' % ', '.join([str(c) for c in color])
         else:
-            result = "url(#%s)" % (self.pattern_name)
+            result = 'url(#%s)' % (self.pattern_name)
         return result
+
+
+class LabelColorConverter():
+    def convert(self, label, disabling_value=None):
+        if label == 0:
+            return 'rgb(0, 0, 0)'
+        elif label == 12:
+            return 'rgb(255, 255, 150)'
+        elif label == 33:
+            return 'rgb( 88,  95, 255)'
+        elif label == 36:
+            return 'rgb( 53,  55, 143)'
+        elif label == 43:
+            return 'rgb(175,  52, 255)'
+        elif label == 46:
+            return 'rgb( 91,  33, 132)'
+        elif label == 53:
+            return 'rgb( 36, 140, 255)'
+        elif label == 56:
+            return 'rgb( 31,  91, 163)'
+        elif label == 60:
+            return 'rgb(255, 190,  10)'
+        elif label == 63:
+            return 'rgb(252,   0, 146)'
+        elif label == 66:
+            return 'rgb(185,   0, 106)'
+        elif label == 70:
+            return 'rgb(102, 204, 255)'
+        elif label == 73:
+            return 'rgb(255, 143,  13)'
+        elif label == 74:
+            return 'rgb(255,   1,  10)'
+        elif label == 75:
+            return 'rgb(255, 203,  22)'
+        elif label == 76:
+            return 'rgb(218, 108,  15)'
+        elif label == 77:
+            return 'rgb(193,   8,  12)'
+        elif label == 78:
+            return 'rgb(202, 150,  15)'
+        elif label == 80:
+            return 'rgb(125,  43, 183)'
+        elif label == 83:
+            return 'rgb( 13, 191, 108)'
+        elif label == 84:
+            return 'rgb(153, 238,  18)'
+        elif label == 86:
+            return 'rgb( 16, 127,  72)'
+        elif label == 87:
+            return 'rgb(108, 168,  13)'
+        elif label == 90:
+            return 'rgb(253,  74,   8)'
+        elif label == 93:
+            return 'rgb(  8, 237, 237)'
+        elif label == 96:
+            return 'rgb( 10, 160, 209)'
+        elif label == 100:
+            return 'rgb(123, 194,   5)'
+        elif label == 103:
+            return 'rgb(177, 131,   0)'
+        elif label == 106:
+            return 'rgb(122,  83,   0)'
 
 
 class Stripe(Defs):

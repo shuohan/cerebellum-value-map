@@ -21,6 +21,7 @@ class RightLobulesI2III(AnnotatedShape):
                 C((311.572, 88.661), (304.230, 93.927), (296.446, 96.707)),
                 Q((287.669, 99.841), (270.312, 97.819)))
     # _annotation_text = 'Lobule I-III'
+    _coloring_value = 36
     
 
 class RightLobuleIV(AnnotatedShape):
@@ -36,7 +37,8 @@ class RightLobuleIV(AnnotatedShape):
                 C((319.403, 108.060), (311.974, 111.902), (303.006, 112.276)),
                 Q((289.661, 112.832), (270.312, 112.276)))
     # _annotation_text = 'Lobule IV'
-    
+    _coloring_value = 46
+
 
 class RightLobuleV(AnnotatedShape):
     _shape = PS(M((270.312, 112.276)),
@@ -51,6 +53,7 @@ class RightLobuleV(AnnotatedShape):
                 C((326.737, 133.287), (315.500, 140.500), (299.500, 140.500)),
                 Q((289.500, 140.500), (270.312, 140.500)))
     # _annotation_text = 'Lobule V'
+    _coloring_value = 56
 
 
 class RightLobuleVI(AnnotatedShape):
@@ -69,6 +72,7 @@ class RightLobuleVI(AnnotatedShape):
                 Q((301.619, 157.830), (302.041, 154.400)),
                 Q((302.648, 149.473), (300.365, 140.509)))
     # _annotation_text = 'Lobule VI'
+    _coloring_value = 66
     
 
 class RightCrusI(AnnotatedShape):
@@ -86,6 +90,7 @@ class RightCrusI(AnnotatedShape):
                 Q((301.154, 182.519), (301.701, 179.606)),
                 Q((302.722, 174.156), (299.230, 163.775)))
     # _annotation_text = 'Lobule Crus I'
+    _coloring_value = 76
 
 
 class RightCrusII(AnnotatedShape):
@@ -100,6 +105,7 @@ class RightCrusII(AnnotatedShape):
                 C((359.903, 214.027), (335.000, 216.000), (327.667, 215.333)),
                 Q((302.655, 213.060), (298.095, 210.306)))
     # _annotation_text = 'Lobule Crus II'
+    _coloring_value = 77
 
 
 class RightLobuleVIIB(AnnotatedShape):
@@ -119,6 +125,8 @@ class RightLobuleVIIB(AnnotatedShape):
                 Q((301.302, 226.059), (301.701, 223.206)),
                 Q((302.370, 218.411), (298.095, 210.306)))
     # _annotation_text = 'Lobule VIIB'
+    _coloring_value = 78
+
 
 
 class RightLobuleVIIIA(AnnotatedShape):
@@ -135,6 +143,7 @@ class RightLobuleVIIIA(AnnotatedShape):
                 Q((300.564, 240.080), (300.679, 237.852)),
                 Q((300.815, 235.209), (298.662, 230.735)))
     # _annotation_text = 'Lobule VIIIA'
+    _coloring_value = 86
     
 
 class RightLobuleVIIIB(AnnotatedShape):
@@ -153,6 +162,7 @@ class RightLobuleVIIIB(AnnotatedShape):
                 Q((303.638, 253.404), (303.105, 250.959)),
                 Q((302.461, 248.006), (298.662, 243.786)))
     # _annotation_text = 'Lobule VIIIB'
+    _coloring_value = 87
     
 
 class RightLobuleIX(AnnotatedShape):
@@ -170,6 +180,7 @@ class RightLobuleIX(AnnotatedShape):
                 Q((301.774, 281.783), (302.630, 278.808)),
                 Q((304.682, 271.680), (302.634, 257.973)))
     # _annotation_text = 'Lobule IX'
+    _coloring_value = 96
     
 
 class RightLobuleX(AnnotatedShape):
@@ -187,6 +198,7 @@ class RightLobuleX(AnnotatedShape):
                 C((293.406, 337.904), (296.030, 327.828), (297.170, 322.885)),
                 C((299.198, 314.095), (299.699, 302.623), (299.230, 286.913)))
     # _annotation_text = ''
+    _coloring_value = 106
     
 
 class VermisVI(AnnotatedShape):
@@ -199,6 +211,7 @@ class VermisVI(AnnotatedShape):
                 Q((239.005, 157.830), (238.583, 154.400)),
                 Q((237.976, 149.473), (240.259, 140.509)),
                 Q((251.124, 140.500), (270.312, 140.500)))
+    _coloring_value = 60
     
 
 class VermisVII(AnnotatedShape):
@@ -218,6 +231,7 @@ class VermisVII(AnnotatedShape):
                 Q((239.470, 182.519), (238.923, 179.606)),
                 Q((237.902, 174.156), (241.394, 163.775)),
                 Q((252.055, 165.333), (270.312, 165.333)))
+    _coloring_value = 70
     
 
 class VermisVIII(AnnotatedShape):
@@ -233,6 +247,7 @@ class VermisVIII(AnnotatedShape):
                 Q((238.163, 248.006), (241.962, 243.786)),
                 Q((240.060, 240.080), (239.945, 237.852)),
                 Q((239.809, 235.209), (241.962, 230.735)))
+    _coloring_value = 80
     
 
 class VermisIX(AnnotatedShape):
@@ -245,6 +260,7 @@ class VermisIX(AnnotatedShape):
                 Q((238.850, 281.783), (237.994, 278.808)),
                 Q((235.942, 271.680), (237.990, 257.973)),
                 Q((246.898, 259.923), (270.312, 258.667)))
+    _coloring_value = 90
     
 
 class VermisX(AnnotatedShape):
@@ -259,50 +275,62 @@ class VermisX(AnnotatedShape):
                 C((250.535, 283.138), (260.174, 281.885), (270.312, 283.155)))
     # _annotation_text = 'Vermis'
     # _annotation_position = 'bottom'
+    _coloring_value = 100
 
 
 class LeftLobulesI2III(AnnotatedShape):
     _shape = RightLobulesI2III._shape.flip(axis)
+    _coloring_value = 33
 
 
 class LeftLobuleIV(AnnotatedShape):
     _shape = RightLobuleIV._shape.flip(axis)
+    _coloring_value = 43
 
 
 class LeftLobuleV(AnnotatedShape):
     _shape = RightLobuleV._shape.flip(axis)
+    _coloring_value = 53
 
 
 class LeftLobuleVI(AnnotatedShape):
     _shape = RightLobuleVI._shape.flip(axis)
+    _coloring_value = 63
 
 
 class LeftCrusI(AnnotatedShape):
     _shape = RightCrusI._shape.flip(axis)
+    _coloring_value = 73
 
 
 class LeftCrusII(AnnotatedShape):
     _shape = RightCrusII._shape.flip(axis)
+    _coloring_value = 74
 
 
 class LeftLobuleVIIB(AnnotatedShape):
     _shape = RightLobuleVIIB._shape.flip(axis)
+    _coloring_value = 75
 
 
 class LeftLobuleVIIIA(AnnotatedShape):
     _shape = RightLobuleVIIIA._shape.flip(axis)
+    _coloring_value = 83
 
 
 class LeftLobuleVIIIB(AnnotatedShape):
     _shape = RightLobuleVIIIB._shape.flip(axis)
+    _coloring_value = 84
 
 
 class LeftLobuleIX(AnnotatedShape):
     _shape = RightLobuleIX._shape.flip(axis)
+    _coloring_value = 93
 
 
 class LeftLobuleX(AnnotatedShape):
     _shape = RightLobuleX._shape.flip(axis)
+    _coloring_value = 103
 
 
 class CorpusMedullare(AnnotatedShape):
@@ -318,3 +346,4 @@ class CorpusMedullare(AnnotatedShape):
                 C((345.929, 598.366), (320.762, 604.487), (311.807, 612.977)),
                 L((283.78, 612.977)))
     _shape = _shape.translate(-27.481, -230)
+    _coloring_value = 12
