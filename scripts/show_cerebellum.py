@@ -34,17 +34,15 @@ from cerebellum_value_map.cerebellum import CerebellumValueMap
 #         result *= -1
 #     return result
 
-def convert_pval(pval, sign, rev=True):
-    if pval > 0.01:
+def convert_pval(pval, sign, rev=False):
+    if pval > 0.05:
         result = 0
-    elif pval > 0.001:
+    elif pval > 0.01:
         result = 1
-    else:
+    elif pval > 0.001:
         result = 2
-    # elif pval > 0.001:
-    #     result = 2
-    # else:
-    #     result = 3
+    else:
+        result = 3
     result *= np.sign(sign)
     if rev:
         result *= -1
@@ -52,7 +50,7 @@ def convert_pval(pval, sign, rev=True):
     
 data = pd.read_csv(args.input_data, index_col=0)
 if args.is_pvalue_mode:
-    cc = ColorConverter(min_color_value=-4, max_color_value=4)
+    # cc = ColorConverter(min_color_value=-4, max_color_value=4)
     for index, row in data.iterrows():
         data.at[index, 'color'] = convert_pval(data.at[index, 'color'],
                                                data.at[index, 'sign'])

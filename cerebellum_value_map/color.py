@@ -9,14 +9,15 @@ from svgwrite.pattern import Pattern
 from svgwrite.shapes import Rect
 
 
-class ColorConverter(metaclass=Singleton):
+class ColorConverter_(metaclass=Singleton):
 
-    def __init__(self, min_color_value=-1, max_color_value=1, colormap='RdBu_r',
+    def __init__(self, min_color_value=-2, max_color_value=2, colormap='RdBu',
                  max_disabling_value=0.05, pattern_name='stripe'):
         self.max_disabling_value = max_disabling_value
         self.pattern_name = pattern_name
         norm = Normalize(vmin=min_color_value, vmax=max_color_value)
         self.colormap = ScalarMappable(norm, cmap=colormap)
+        print(norm)
 
     def convert(self, color_value, disabling_value=-float('inf')):
         if disabling_value <= self.max_disabling_value:
@@ -25,6 +26,24 @@ class ColorConverter(metaclass=Singleton):
         else:
             result = 'url(#%s)' % (self.pattern_name)
         return result
+
+
+class ColorConverter():
+    def convert(self, color_value, disabling_value=None):
+        if color_value == 0:
+            return 'rgb(255, 255, 255)'
+        elif color_value == 1:
+            return 'rgb(255, 225, 25)'
+        elif color_value == 2:
+            return 'rgb(245, 130, 49)'
+        elif color_value == 3:
+            return 'rgb(230, 25, 75)'
+        elif color_value == -1:
+            return 'rgb(66, 212, 244)'
+        elif color_value == -2:
+            return 'rgb(67, 99, 216)'
+        elif color_value == -3:
+            return 'rgb(70, 153, 144)'
 
 
 class LabelColorConverter():
