@@ -1,0 +1,11 @@
+region,color,disable
+right_anterior_lobe,0,0
+left_anterior_lobe,0.1,0
+right_superior_posterior_lobe,0.2,0
+left_superior_posterior_lobe,0.3,0
+right_inferior_posterior_lobe,0.4,0
+left_inferior_posterior_lobe,0.5,0
+right_lobule_x,0.6,0
+left_lobule_x,0.7,0
+vermis,0.8,0
+corpus_medullare,0.9,0
