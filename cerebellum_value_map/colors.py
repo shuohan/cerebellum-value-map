@@ -1,3 +1,6 @@
+"""Classes to map a value into a RGB color code.
+
+"""
 import pathlib
 import re
 from matplotlib.colors import Normalize

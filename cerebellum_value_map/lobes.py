@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from .path_code import Move as M
 from .path_code import Line as L
 from .path_code import BezierCurve as C

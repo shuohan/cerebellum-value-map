@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import numpy as np
 from svgwrite.container import Group
 from svgwrite.path import Path
