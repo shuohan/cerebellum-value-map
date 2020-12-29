@@ -39,6 +39,14 @@ class Stripe(Defs):
         self.add(pattern)
 
 
+class Colors:
+    """Abstract class to convert a value into a RGB color."""
+    def get_color(self, value):
+        raise NotImplementedError
+    def __getitem__(self, value):
+        return self.get_color(value)
+
+
 class ContinousColors:
     """Returns a RGB color for SVG given a value from a continuous colormap.
 
@@ -109,6 +117,9 @@ class PatternContinousColors(ContinousColors):
             return super().get_color(value)
         else:
             return 'url(#stripe)'
+
+    def __getitem__(self, value):
+        raise NotImplementedError
 
 
 class DiscreteColors():
@@ -215,6 +226,9 @@ class CerebellumLabelColors(DiscreteColors):
         """
         value = self._mapping[name]
         return self.get_color(value)
+
+    def __getitem__(self, name):
+        return self.get_color_from_name(name)
 
 
 class NameValueMapping:

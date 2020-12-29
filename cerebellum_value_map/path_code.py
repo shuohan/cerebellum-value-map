@@ -84,12 +84,12 @@ class Line(PathCode):
 
     Example:
 
-    >>> str(Line((10, 20), (20, 30)))
-    L 10.000 20.000 20.000 30.000
+    >>> str(Line((10, 20)))
+    L 10.000 20.000
 
     Attributes:
-        points (tuple[tuple]): The start and stop points. It should have two 2D
-            points (x_start, y_start) and (x_stop, y_stop).
+        points (tuple[tuple]): The stop point. It should have one 2D point
+            (x_stop, y_stop).
 
     """
     command = 'L'
@@ -121,8 +121,8 @@ class BezierCurve(PathCode):
 
     Attributes:
         points (tuple[tuple]): The control 1, control2, and stop points.
-            It should have two 2D points (x_control_1, y_control_1) and
-            (x_control_2, y_control_2).
+            It should have three 2D points (x_control_1, y_control_1),
+            (x_control_2, y_control_2), and (x_stop, y_stop).
 
     """
     command = 'C'

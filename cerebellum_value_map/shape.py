@@ -1,67 +1,117 @@
+"""Classes to hold a shape.
+
+"""
 import numpy as np
 from svgwrite.container import Group
 from svgwrite.path import Path
 
-from .color import ColorConverter, LabelColorConverter
 from .path_code import PathCode
 from .text import Value, Annotation
+from .colors import DiscreteColors, CerebellumLabelColors
 
 
 class Shape:
+    """Abstract class to hold a shape.
 
+    """
     @property
     def points(self):
+        """Returns points (vertices) of this shape.
+
+        Returns:
+            numpy.ndarray[float]: The shape is num_colors x 2. Each row is a
+                vertex of this shape.
+
+        """
         raise NotImplementedError
-    
+
     @property
     def left(self):
+        """Returns the left-most horizontal coordinate."""
         return np.min(self.points[:, 0])
 
     @property
     def right(self):
+        """Returns the right-most horizontal coordinate."""
         return np.max(self.points[:, 0])
 
     @property
     def bottom(self):
+        """Returns the bottom-most vertical coordinate."""
         return np.max(self.points[:, 1])
 
     @property
-    def up(self):
+    def top(self):
+        """Returns the top-most vertical coordinate."""
         return np.min(self.points[:, 1])
 
     @property
     def h_center(self):
+        """Returns the averge of :meth:`left` and :meth:`right`."""
         return (self.left + self.right) / 2
 
     @property
     def v_center(self):
-        return (self.up + self.bottom) / 2
+        """Returns the averge of :meth:`bottom` and :meth:`top`."""
+        return (self.top + self.bottom) / 2
 
     def get_svg(self, **kwargs):
-        raise NotImplementedError
+        """Returns the svg code of this shape.
 
-    def flip(self, axis):
+        Args:
+            kwargs: The svg options such as ``fill``.
+
+        """
         raise NotImplementedError
 
     def translate(self, x, y):
+        """Translate the shape by an offset (x, y).
+
+        Args:
+            x (float): The horizontal translation.
+            y (float): The vertical translation.
+
+        Returns:
+            Shape: The translated shape.
+
+        """
         raise NotImplementedError
 
     def scale(self, f):
+        """Scales the shape.
+
+        Args:
+            f (float): The scale factor.
+
+        Returns:
+            Shape: The scaled shape.
+
+        """
         raise NotImplementedError
 
 
-class PathShape(Shape, PathCode):
+class PathShape(Shape):
+    """A shape specified with path codes.
 
-    def __init__(self, *codes, close=True):
+    Note:
+        To convert the shape into SVG code:
+        >>> str(PathShape())
+
+    Attributes:
+        codes (list[PathCode]): The path codes to form the shape.
+        enclose (bool): If True, add a path code "Z" to enclose the shape.
+
+    """
+    def __init__(self, *codes, enclose=True):
         self.codes = list(codes)
-        self.close = True
+        self.enclose = True
 
     def __repr__(self):
         return ',\n'.join([repr(code) for code in self.codes])
 
     def __str__(self):
         path_codes = [str(c) for c in self.codes]
-        if self.close:
+        if self.enclose:
             path_codes.append('Z')
         return ' '.join(path_codes)
 
@@ -75,47 +125,75 @@ class PathShape(Shape, PathCode):
         return path
 
     def flip(self, axis):
+        """Flips the shape around a vertical axis.
+
+        Args:
+            axis (float): The horizontal location of this vertical axis.
+
+        Returns:
+            PathShape: The flipped shape.
+
+        """
         flipped_codes = list()
         for code in self.codes:
             flipped_codes.append(code.flip(axis))
-        return self.__class__(*flipped_codes, close=self.close)
+        return self.__class__(*flipped_codes, enclose=self.enclose)
 
     def translate(self, x, y):
         codes = [code.translate(x, y) for code in self.codes]
-        return self.__class__(*codes, close=self.close)
+        return self.__class__(*codes, enclose=self.enclose)
 
     def scale(self, f):
         codes = [code.scale(f) for code in self.codes]
-        return self.__class__(*codes, close=self.close)
+        return self.__class__(*codes, enclose=self.enclose)
 
 
-class AnnotatedShape_(Shape):
+class AnnotatedShape(Shape):
+    """Wraps a shape with annotation using SVG Group.
 
-    def __init__(self, shape, annotation_text='', annotation_position='right',
-                 coloring_value=0, disabling_value=-float('inf'),
-                 show_color=False, label_map=False):
+    Attributes:
+        shape (Shape): The shape to annotate.
+        value (float): The coloring value.
+        colors (cerebellum_value_map.colors.Colors): Converts the value into a
+            color.
+        annot_txt (str): The annotation text, such as the name of this shape.
+        annot_pos (str, cerebellum_value_map.text.AnnotationPosition): The
+            annotation position. See
+            :class:`cerebellum_value_map.text.AnnotationPosition` for available
+            choices.
+        show_annot (bool): Show annotation with the shape.
+        show_value_txt (bool): If True, show a text of the coloring value.
+
+    """
+    def __init__(self, shape, value, colors=DiscreteColors(),
+                 annot_txt='', annot_pos='right',
+                 show_annot=False, show_value_txt=False):
         super().__init__()
-        if label_map:
-            color_converter = LabelColorConverter()
-        else:
-            color_converter = ColorConverter()
         self.shape = shape
-        self.color = color_converter.convert(coloring_value, disabling_value)
-        self.annotation_text = annotation_text
-        self.annotation_position = annotation_position
-        self.coloring_value = coloring_value
-        self.disabling_value = disabling_value
-        self.show_color = show_color
-        self.label_map = label_map
+        self.value = value
+        self.colros = colors
+        self.color = colors[value]
+        self.annot_txt = annot_txt
+        self.annot_pos = annot_pos
+        self.show_annot = show_annot
+        self.show_value_txt = show_value_txt
 
     def get_svg(self, **kwargs):
+        """Returns the svg code of this shape with annotation.
+
+        Args:
+            kwargs: The options for the group.
+
+        Returns:
+            svgwrite.container.Group: The group of the shape and annotations.
+
+        """
         group = Group(**kwargs)
         group.add(self.shape.get_svg(fill=self.color))
-        if len(self.annotation_text) > 0:
-            group.add(Annotation(self.annotation_text, self.annotation_position,
-                                 self.shape))
-        if self.show_color:
-            group.add(Value(self.coloring_value, self.shape))
+        if len(self.annot_txt) > 0 and self.show_annot:
+            group.add(Annotation(self.annot_txt, self.annot_pos, self.shape))
+        if self.show_value_txt:
+            group.add(Value(self.value, self.shape))
         return group
 
     @property
@@ -124,45 +202,14 @@ class AnnotatedShape_(Shape):
 
     def translate(self, x, y):
         shape = self.shape.translate(x, y)
-        return self.__class__(shape, self.annotation_text,
-                              self.annotation_position, self.coloring_value,
-                              self.disabling_value, self.show_color,
-                              self.label_map)
+        return self.__class__(shape, self.value, colors=self.colors,
+                              annot_txt=self.annot_txt,
+                              annot_pos=self.annot_pos,
+                              show_value_txt=self.show_value_txt)
 
     def scale(self, f):
         shape = self.shape.scale(f)
-        return self.__class__(shape, self.annotation_text,
-                              self.annotation_position, self.coloring_value,
-                              self.disabling_value, self.show_color,
-                              self.label_map)
-
-
-class AnnotatedShape(AnnotatedShape_):
-
-    _shape = None
-    _annotation_text = ''
-    _annotation_position = 'right'
-    _coloring_value = 0
-
-    def __init__(self, coloring_value=0, disabling_value=-float('inf'),
-                 show_color=False, label_map=False):
-
-        if label_map:
-            coloring_value = self.__class__._coloring_value
-
-        super().__init__(self._shape, annotation_text=self._annotation_text,
-                         annotation_position=self._annotation_position,
-                         coloring_value=coloring_value,
-                         disabling_value=disabling_value,
-                         show_color=show_color,
-                         label_map=label_map)
-
-    def translate(self, x, y):
-        self.__class__._shape = self.shape.translate(x, y)
-        return self.__class__(self.coloring_value, self.disabling_value,
-                              self.show_color, self.label_map)
-
-    def scale(self, f):
-        self.__class__._shape = self.shape.scale(f)
-        return self.__class__(self.coloring_value, self.disabling_value,
-                              self.show_color, self.label_map)
+        return self.__class__(shape, self.value, colors=self.colors,
+                              annot_txt=self.annot_txt,
+                              annot_pos=self.annot_pos,
+                              show_value_txt=self.show_value_txt)
