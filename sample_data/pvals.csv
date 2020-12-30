@@ -1,0 +1,11 @@
+name,pval,sign
+Right Anterior,0.03,1
+Left Anterior,0.001,-1
+Right Superior Posterior,0.04,-1
+Left Superior Posterior,0.02,1
+Right Inferior Posterior,0.009,-1
+Left Inferior Posterior,0.004,1
+Right X,0.001,-1
+Left X,3.4E-4,1
+Vermis,9.1E-4,-1
+Corpus Medullare,1.3E-10,1

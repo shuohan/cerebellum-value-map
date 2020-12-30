@@ -1,0 +1,29 @@
+name,value
+Corpus Medullare,1
+Left I-III,-1
+Right I-III,2
+Left IV,3
+Right IV,-2
+Left V,-3
+Right V,0
+Vermis VI,0
+Left VI,1
+Right VI,2
+Vermis VII,-2
+Left Crus I,-3
+Left Crus II,1
+Left VIIB,2
+Right Crus I,0
+Right Crus II,1
+Right VIIB,-3
+Vermis VIII,-2
+Left VIIIA,1
+Left VIIIB,2
+Right VIIIA,3
+Right VIIIB,0
+Vermis IX,-3
+Left IX,-1
+Right IX,2
+Vermis X,1
+Left X,3
+Right X,1
