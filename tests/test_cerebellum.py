@@ -21,7 +21,7 @@ def test_value_map():
 
 def test_label_map():
     filename = dirname.joinpath('label_map.svg')
-    names = ['Right I-III', 'Vermis VI']
+    names = ['Right I-III', 'Left VI']
     lmap = CerebellumLabelMap(names, filename, show_annot=False)
     lmap.save()
 

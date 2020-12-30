@@ -17,20 +17,21 @@ from .colors import DiscreteColors, ContinousColors, CerebellumLabelColors
 axis = 270.312
 """float: The flipping axis to create the left counter-part from the right."""
 
-default_lobule_names = ['Corpus Medullare', 'Vermis',
+default_lobe_names = ['Corpus Medullare', 'Vermis',
                         'Left Anterior', 'Right Anterior',
                         'Left Superior Posterior', 'Right Superior Posterior',
                         'Left Inferior Posterior', 'Right Inferior Posterior',
                         'Left X', 'Right X']
 """list[str]: The region names of a default lobe illustration."""
 
-default_lobe_names = ['Corpus Medullare' 'Left I-III', 'Right I-III', 'Left IV',
-                      'Right IV', 'Left V', 'Right V', 'Vermis VI', 'Left VI',
-                      'Right VI', 'Vermis VII', 'Left Crus I', 'Left Crus II',
-                      'Left VIIB', 'Right Crus I', 'Right Crus II',
-                      'Right VIIB', 'Vermis VIII', 'Left VIIIA', 'Left VIIIB',
-                      'Right VIIIA', 'Right VIIIB', 'Vermis IX', 'Left IX',
-                      'Right IX', 'Vermis X', 'Left X', 'Right X']
+default_lobule_names = ['Corpus Medullare', 'Left I-III', 'Right I-III',
+                        'Left IV', 'Right IV', 'Left V', 'Right V', 'Vermis VI',
+                        'Left VI', 'Right VI', 'Vermis VII', 'Left Crus I',
+                        'Left Crus II', 'Left VIIB', 'Right Crus I',
+                        'Right Crus II', 'Right VIIB', 'Vermis VIII',
+                        'Left VIIIA', 'Left VIIIB', 'Right VIIIA',
+                        'Right VIIIB', 'Vermis IX', 'Left IX', 'Right IX',
+                        'Vermis X', 'Left X', 'Right X']
 """list[str]: The region names of a default lobules illustration."""
 
 
@@ -412,9 +413,9 @@ def create_region(name):
                    C((247.218, 337.904), (244.594, 327.828), (243.454, 322.885)),
                    C((241.426, 314.095), (240.925, 302.623), (241.394, 286.913)),
                    C((250.535, 283.138), (260.174, 281.885), (270.312, 283.155)))
-    elif 'Left' in RegionName[name]:
-        right_region = RegionName[name].replace('Left', 'Right')
-        shape = create_region(name).flip(axis)
+    elif 'Left' in name.value:
+        right_region = name.value.replace('Left', 'Right')
+        shape = create_region(right_region).flip(axis)
     return shape
 
 
@@ -440,8 +441,14 @@ def create_annot_region(name, value=None, colors=DiscreteColors(),
     name = RegionName(name).value
     shape = create_region(name)
     value = name if value is None else value
-    annot_txt = name.replace('Right ', '') if 'Right' in name else ''
-    annot_pos = 'right' if 'Right' in name else ''
+    annot_txt = ''
+    annot_pos = ''
+    if 'Right' in name:
+        annot_txt = name.replace('Right ', '')
+        annot_pos = 'right'
+    elif RegionName(name) is RegionName.CORPUS_MEDULLARE:
+        annot_txt = name
+        annot_pos = 'bottom'
     return AnnotatedShape(shape, value, colors=colors,
                           annot_txt=annot_txt, annot_pos=annot_pos,
                           show_annot=show_annot, show_value_txt=show_value_txt)

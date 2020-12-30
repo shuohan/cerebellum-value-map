@@ -171,7 +171,7 @@ class AnnotatedShape(Shape):
         super().__init__()
         self.shape = shape
         self.value = value
-        self.colros = colors
+        self.colors = colors
         self.color = colors[value]
         self.annot_txt = annot_txt
         self.annot_pos = annot_pos
@@ -205,6 +205,7 @@ class AnnotatedShape(Shape):
         return self.__class__(shape, self.value, colors=self.colors,
                               annot_txt=self.annot_txt,
                               annot_pos=self.annot_pos,
+                              show_annot=self.show_annot,
                               show_value_txt=self.show_value_txt)
 
     def scale(self, f):
@@ -212,4 +213,5 @@ class AnnotatedShape(Shape):
         return self.__class__(shape, self.value, colors=self.colors,
                               annot_txt=self.annot_txt,
                               annot_pos=self.annot_pos,
+                              show_annot=self.show_annot,
                               show_value_txt=self.show_value_txt)

@@ -55,17 +55,15 @@ class ContinousColors(Colors):
     blue in the colormap "jet") and the right-most color (e.g., dark red in the
     colormap "jet"). 
 
-    Attributes:
+    Args:
         vmin (float): The value of the left-most color.
         vmax (float): The value of the right-most color.
-
-    Args:
         cmap (str): The name of the colormap. See colormaps in matplotlib
             tutorials for available choices.
 
     """
     def __init__(self, vmin=-2, vmax=2, cmap='jet'):
-        norm = Normalize(vmin=min_color_value, vmax=max_color_value)
+        norm = Normalize(vmin=vmin, vmax=vmax)
         self.cmap = ScalarMappable(norm, cmap=cmap)
 
     def get_color(self, value):
