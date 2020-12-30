@@ -17,6 +17,22 @@ from .colors import DiscreteColors, ContinousColors, CerebellumLabelColors
 axis = 270.312
 """float: The flipping axis to create the left counter-part from the right."""
 
+default_lobule_names = ['Corpus Medullare', 'Vermis',
+                        'Left Anterior', 'Right Anterior',
+                        'Left Superior Posterior', 'Right Superior Posterior',
+                        'Left Inferior Posterior', 'Right Inferior Posterior',
+                        'Left X', 'Right X']
+"""list[str]: The region names of a default lobe illustration."""
+
+default_lobe_names = ['Corpus Medullare' 'Left I-III', 'Right I-III', 'Left IV',
+                      'Right IV', 'Left V', 'Right V', 'Vermis VI', 'Left VI',
+                      'Right VI', 'Vermis VII', 'Left Crus I', 'Left Crus II',
+                      'Left VIIB', 'Right Crus I', 'Right Crus II',
+                      'Right VIIB', 'Vermis VIII', 'Left VIIIA', 'Left VIIIB',
+                      'Right VIIIA', 'Right VIIIB', 'Vermis IX', 'Left IX',
+                      'Right IX', 'Vermis X', 'Left X', 'Right X']
+"""list[str]: The region names of a default lobules illustration."""
+
 
 class RegionName(str, Enum):
     """Enum of cerebellar regions.
@@ -466,12 +482,14 @@ class CerebellumValueMap:
         stroke (str): The color of the stroke.
         stroke_width (int): The width of the stroke.
         size (tuple[int]): The size (width, height) of the illustration.
+        create (function): The function to create a region.
 
     """
     def __init__(self, data, output_filename, show_annot=False,
                  show_value_txt=False, colors=DiscreteColors(),
                  font_size=12, font_family='Helvetica',
-                 stroke='black', stroke_width=2, size=(550, 450)):
+                 stroke='black', stroke_width=2, size=(550, 450),
+                 create=create_annot_region):
         assert isinstance(colors, DiscreteColors) \
             or isinstance(colors, ContinousColors)
         self.data = data
@@ -484,9 +502,10 @@ class CerebellumValueMap:
         self.stroke = stroke
         self.stroke_width = stroke_width
         self.size = size
-        self._regions = [create_annot_region(name, value[0], colors=self.colors,
-                                             show_annot=self.show_annot,
-                                             show_value_txt=self.show_value_txt)
+        self.create = create_annot_region
+        self._regions = [create(name, value[0], colors=self.colors,
+                                show_annot=self.show_annot,
+                                show_value_txt=self.show_value_txt)
                          for name, value in self.data.iterrows()]
 
     def translate(self, x, y):
@@ -557,20 +576,23 @@ class CerebellumLabelMap(CerebellumValueMap):
         stroke (str): The color of the stroke.
         stroke_width (int): The width of the stroke.
         size (tuple[int]): The size (width, height) of the illustration.
+        create (function): The function to create a region.
 
     """
     def __init__(self, region_names, output_filename, show_annot=False,
+                 colors=CerebellumLabelColors(),
                  font_size=12, font_family='Helvetica',
-                 stroke='black', stroke_width=2, size=(550, 450)):
+                 stroke='black', stroke_width=2, size=(550, 450),
+                 create=create_annot_region):
         self.region_names = region_names
         self.output_filename = output_filename
         self.show_annot = show_annot
-        self.colors = CerebellumLabelColors()
+        self.colors = colors
         self.font_size = font_size
         self.font_family = font_family
         self.stroke = stroke
         self.stroke_width = stroke_width
         self.size = size
-        self._regions = [create_annot_region(name, colors=self.colors,
-                                             show_annot=self.show_annot)
+        self._regions = [create(name, colors=self.colors,
+                                show_annot=self.show_annot)
                          for name in self.region_names]
