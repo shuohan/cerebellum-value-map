@@ -38,6 +38,10 @@ default_lobule_names = ['Corpus Medullare', 'Left I-III', 'Right I-III',
 class RegionName(str, Enum):
     """Enum of cerebellar regions.
 
+    To show all regions:
+
+    >>> print(list(RegionName))
+
     """
     CORPUS_MEDULLARE = 'Corpus Medullare'
 
@@ -82,7 +86,7 @@ def create_region(name):
     """Creates a cerebellar region.
 
     Args:
-        name (str or RegionName): The name of the region.
+        name (str, RegionName): The name of the region.
 
     Returns:
         cerebellum_value_map.shape.PathShape: The created cerebellar region.
@@ -475,7 +479,7 @@ class CerebellumValueMap:
     The values contained in :attr:`data` are converted into colors found in a
     colormap that is specified by :attr:`colors`.
 
-    Attributes:
+    Args:
         data (pandas.DataFrame): The data to show in the illustration.
         output_filename (str): The filename of the output SVG image.
         font_size (int): The size of annotation font.
@@ -483,7 +487,7 @@ class CerebellumValueMap:
         show_annot (bool): If True, show the annotations of cerebellar regions.
         show_value_txt (bool): If True, show the values as text on top of each
             region.
-        colors (cerebellum_value_map.colors.ContinousColorsColors,
+        colors (cerebellum_value_map.colors.ContinousColorsColors,\
             cerebellum_value_map.colors.DiscreteColors): Converts a value into
             the corresponding color in a colormap.
         stroke (str): The color of the stroke.
@@ -570,7 +574,7 @@ class CerebellumValueMap:
 class CerebellumLabelMap(CerebellumValueMap):
     """Saves an SVG illustration of cerebellar region definitions.
 
-    Attributes:
+    Args:
         region_names (iterable[str]): The names of the regions to show.
         output_filename (str): The filename of the output SVG image.
         font_size (int): The size of annotation font.

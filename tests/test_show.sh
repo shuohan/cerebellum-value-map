@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 ../scripts/show_cerebellum.py -i ../sample_data/data_lobe.csv \
-    -o results/continuous_lobe.svg -M continuous -w 1
+    -o results/continuous_lobe.svg -M continuous -w 1 \
+    -s 256 256 -S 0.69
 ../scripts/show_cerebellum.py -i ../sample_data/data_lobule.csv \
-    -o results/discrete_lobule.svg -M discrete -w 1
+    -o results/discrete_lobule.svg -M discrete -w 1 \
+    -s 256 256 -S 0.69
 ../scripts/show_cerebellum.py -i ../sample_data/pvals.csv \
     -o results/pvals.svg -M discrete -w 1 -p
 ../scripts/show_cerebellum.py -i ../sample_data/data_lobe.csv \

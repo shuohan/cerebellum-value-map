@@ -9,4 +9,5 @@ __all__ = ['create_annot_region', 'create_region',
            'CerebellumLabelMap', 'CerebellumValueMap',
            'DiscreteColors', 'CerebellumLabelColors', 'ContinousColors',
            'PathShape', 'AnnotatedShape',
-           'default_lobule_names', 'default_lobe_names' ]
+           'default_lobule_names', 'default_lobe_names',
+           'convert_pvals']

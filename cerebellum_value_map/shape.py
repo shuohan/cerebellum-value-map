@@ -19,8 +19,8 @@ class Shape:
         """Returns points (vertices) of this shape.
 
         Returns:
-            numpy.ndarray[float]: The shape is num_colors x 2. Each row is a
-                vertex of this shape.
+            numpy.ndarray[float]:
+            The shape is num_colors x 2. Each row is a vertex of this shape.
 
         """
         raise NotImplementedError
@@ -95,9 +95,10 @@ class PathShape(Shape):
 
     Note:
         To convert the shape into SVG code:
+
         >>> str(PathShape())
 
-    Attributes:
+    Args:
         codes (list[PathCode]): The path codes to form the shape.
         enclose (bool): If True, add a path code "Z" to enclose the shape.
 
@@ -151,7 +152,7 @@ class PathShape(Shape):
 class AnnotatedShape(Shape):
     """Wraps a shape with annotation using SVG Group.
 
-    Attributes:
+    Args:
         shape (Shape): The shape to annotate.
         value (float): The coloring value.
         colors (cerebellum_value_map.colors.Colors): Converts the value into a

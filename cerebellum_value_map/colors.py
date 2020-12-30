@@ -53,7 +53,10 @@ class ContinousColors(Colors):
     Given a float number between the attributes :attr:`vmin` and :attr:`vmax`,
     the color is found in a colormap between the left-most color (e.g., dark
     blue in the colormap "jet") and the right-most color (e.g., dark red in the
-    colormap "jet"). 
+    colormap "jet"). To get a color:
+
+    >>> colors = ContinousColors()
+    >>> color = colors[1]
 
     Args:
         vmin (float): The value of the left-most color.
@@ -71,7 +74,7 @@ class ContinousColors(Colors):
 
         Args:
             value (float): The value of the color between :attr:`vmin` and
-                :attr:`vmax'.
+                :attr:`vmax`.
 
         Returns:
             str: The RGB color used in an SVG file (e.g., "rgb(255, 255, 255)").
@@ -89,7 +92,7 @@ class PatternContinousColors(ContinousColors):
     :attr:`threshold`, a stripe pattern pattern is returned; otherwise, the same
     color conversion logic as in :class:`ContinousColors` is used.
 
-    Attributes:
+    Args:
         threshold (float): Returns a stripe pattern when the value is smaller
             than this number.
 
@@ -160,13 +163,18 @@ class DiscreteColors(Colors):
     Any number of spaces can be used to separate these numbers. The IDX column
     should be integers (0, positive, or negative).
 
-    Attributes:
-        colors (dict): The loaded colors. The dict key is the color value, and
-            the dict value is the corresponding RGB color.
+    To get a color:
+
+    >>> colors = DiscreteColors()
+    >>> color = colors[1]
 
     Args:
         filename (str): The filename of the colors. If it is ``None`` or  does
             not exist, default colors are used.
+
+    Attributes:
+        colors (dict): The loaded colors. The dict key is the color value, and
+            the dict value is the corresponding RGB color.
 
     """
     def __init__(self, filename=None):
@@ -205,6 +213,11 @@ class DiscreteColors(Colors):
 
 class CerebellumLabelColors(DiscreteColors):
     """A wrapper for cerebellum label colors.
+
+    To get a color:
+
+    >>> colors = CerebellumLabelColors()
+    >>> color = colors['Vermis']
 
     """
     def __init__(self, filename=None):

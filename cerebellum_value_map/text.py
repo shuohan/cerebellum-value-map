@@ -6,7 +6,13 @@ from svgwrite.text import Text
 
 
 class AnnotationPosition(str, Enum):
-    """Enum of the annotation positions."""
+    """Enum of the annotation positions.
+
+    To show available choices:
+
+    >>> print(list(AnnotationPosition))
+
+    """
     RIGHT = 'right'
     LEFT = 'left'
     TOP = 'top'
