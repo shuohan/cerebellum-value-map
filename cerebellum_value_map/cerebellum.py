@@ -533,3 +533,34 @@ class CerebellumValueMap:
         for region in self._regions:
             drawing.add(region.get_svg())
         drawing.save(pretty=True)
+
+
+class CerebellumLabelMap(CerebellumValueMap):
+    """Saves an SVG illustration of cerebellar region definitions.
+
+    Attributes:
+        region_names (iterable[str]): The names of the regions to show.
+        output_filename (str): The filename of the output SVG image.
+        font_size (int): The size of annotation font.
+        show_annot (bool): If True, show the annotations of cerebellar regions.
+        show_value_txt (bool): If True, show the values as text on top of each
+            region.
+        colors (cerebellum_value_map.colors.CerebellumLabelColors): Returns the
+            color of each cerebellar region.
+        stroke (str): The color of the stroke.
+        stroke_width (int): The width of the stroke.
+        size (tuple[int]): The size (width, height) of the illustration.
+
+    """
+    def __init__(self, region_names, output_filename, show_annot=False,
+                 font_size=12, stroke='black', stroke_width=2, size=(550, 450)):
+        self.region_names = region_names
+        self.output_filename = output_filename
+        self.show_annot = show_annot
+        self.colors = CerebellumLabelColors()
+        self.font_size = font_size
+        self.stroke = stroke
+        self.stroke_width = stroke_width
+        self.size = size
+        self._regions = [create_annot_region(name, colors=self.colors)
+                         for name in self.region_names]
