@@ -47,7 +47,7 @@ class Colors:
         return self.get_color(value)
 
 
-class ContinousColors:
+class ContinousColors(Colors):
     """Returns a RGB color for SVG given a value from a continuous colormap.
 
     Given a float number between the attributes :attr:`vmin` and :attr:`vmax`,
@@ -122,7 +122,7 @@ class PatternContinousColors(ContinousColors):
         raise NotImplementedError
 
 
-class DiscreteColors():
+class DiscreteColors(Colors):
     """Returns discrete colors loaded from a .txt file given a value.
 
     The .txt file should use the ITK-SNAP format. An example:

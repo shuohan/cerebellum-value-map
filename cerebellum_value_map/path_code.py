@@ -16,11 +16,11 @@ class PathCode:
 
     def __repr__(self):
         pattern = '%s(' + ', '.join(['(%.3f, %.3f)'] * len(self.points)) + ')'
-        return pattern % (self.command, *[c for c in p for p in self.points])
+        return pattern % (self.command, *[c for p in self.points for c in p])
 
     def __str__(self):
         pattern = '%s ' + ' '.join(['%.3f, %.3f'] * len(self.points))
-        return pattern % (self.command, *[c for c in p for p in self.points])
+        return pattern % (self.command, *[c for p in self.points for c in p])
 
     def flip(self, axis):
         """Flips the the path code around a vertial axis.
