@@ -209,8 +209,9 @@ class CerebellumLabelColors(DiscreteColors):
     """A wrapper for cerebellum label colors.
 
     """
-    def __init__(self):
-        filename = pathlib.Path(__file__).parent.joinpath('colormap.txt')
+    def __init__(self, filename=None):
+        if filename is None:
+            filename = pathlib.Path(__file__).parent.joinpath('colormap.txt')
         super().__init__(filename)
         self._mapping = NameValueMapping(filename)
 

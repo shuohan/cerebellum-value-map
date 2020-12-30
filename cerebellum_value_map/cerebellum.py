@@ -402,17 +402,18 @@ def create_region(name):
     return shape
 
 
-def create_annot_region(name, value, colors=DiscreteColors(),
-                        show_value_txt=False):
+def create_annot_region(name, value=None, colors=DiscreteColors(),
+                        show_annot=False, show_value_txt=False):
     """Creates an annotated cerebellar region.
 
     Args:
         shape (Shape): The shape to annotate.
-        value (float): The coloring value.
+        value (float): The coloring value. If None, use the label name.
         colors (cerebellum_value_map.colors.Colors): Converts the value into a
             color.
         annot_txt (str): The annotation text, such as the name of this shape.
         annot_pos (str): The annotation position.
+        show_annot (bool): If True, show the annotation of the shape.
         show_value_txt (bool): If True, show a text of the coloring value.
 
     Returns:
@@ -420,14 +421,14 @@ def create_annot_region(name, value, colors=DiscreteColors(),
         The annotated cerebellar region.
 
     """
-    name = RegionName[RegionName(name)]
+    name = RegionName(name).value
     shape = create_region(name)
     value = name if value is None else value
     annot_txt = name.replace('Right ', '') if 'Right' in name else ''
     annot_pos = 'right' if 'Right' in name else ''
     return AnnotatedShape(shape, value, colors=colors,
-                          annot_txt=name, annot_pos=annot_pos,
-                          show_value_txt=show_value_txt)
+                          annot_txt=annot_txt, annot_pos=annot_pos,
+                          show_annot=show_annot, show_value_txt=show_value_txt)
 
 
 class CerebellumValueMap:
@@ -455,6 +456,7 @@ class CerebellumValueMap:
         data (pandas.DataFrame): The data to show in the illustration.
         output_filename (str): The filename of the output SVG image.
         font_size (int): The size of annotation font.
+        font_family (str): The font family of the annotation.
         show_annot (bool): If True, show the annotations of cerebellar regions.
         show_value_txt (bool): If True, show the values as text on top of each
             region.
@@ -467,7 +469,8 @@ class CerebellumValueMap:
 
     """
     def __init__(self, data, output_filename, show_annot=False,
-                 show_value_txt=False, colors=DiscreteColors(), font_size=12,
+                 show_value_txt=False, colors=DiscreteColors(),
+                 font_size=12, font_family='Helvetica',
                  stroke='black', stroke_width=2, size=(550, 450)):
         assert isinstance(colors, DiscreteColors) \
             or isinstance(colors, ContinousColors)
@@ -477,11 +480,13 @@ class CerebellumValueMap:
         self.show_value_txt = show_value_txt
         self.colors = colors
         self.font_size = font_size
+        self.font_family = font_family
         self.stroke = stroke
         self.stroke_width = stroke_width
         self.size = size
         self._regions = [create_annot_region(name, value[0], colors=self.colors,
-                                             show_color_txt=self.show_color_txt)
+                                             show_annot=self.show_annot,
+                                             show_value_txt=self.show_value_txt)
                          for name, value in self.data.iterrows()]
 
     def translate(self, x, y):
@@ -526,10 +531,11 @@ class CerebellumValueMap:
     def save(self):
         """Saves the illustration into :attr:`output_filename`."""
         drawing = Drawing(self.output_filename,
-                          size=self._size,
+                          size=self.size,
                           stroke=self.stroke,
                           stroke_width=self.stroke_width,
-                          font_size=self.font_size)
+                          font_size=self.font_size,
+                          font_family=self.font_family)
         for region in self._regions:
             drawing.add(region.get_svg())
         drawing.save(pretty=True)
@@ -542,6 +548,7 @@ class CerebellumLabelMap(CerebellumValueMap):
         region_names (iterable[str]): The names of the regions to show.
         output_filename (str): The filename of the output SVG image.
         font_size (int): The size of annotation font.
+        font_family (str): The font family of the annotation.
         show_annot (bool): If True, show the annotations of cerebellar regions.
         show_value_txt (bool): If True, show the values as text on top of each
             region.
@@ -553,14 +560,17 @@ class CerebellumLabelMap(CerebellumValueMap):
 
     """
     def __init__(self, region_names, output_filename, show_annot=False,
-                 font_size=12, stroke='black', stroke_width=2, size=(550, 450)):
+                 font_size=12, font_family='Helvetica',
+                 stroke='black', stroke_width=2, size=(550, 450)):
         self.region_names = region_names
         self.output_filename = output_filename
         self.show_annot = show_annot
         self.colors = CerebellumLabelColors()
         self.font_size = font_size
+        self.font_family = font_family
         self.stroke = stroke
         self.stroke_width = stroke_width
         self.size = size
-        self._regions = [create_annot_region(name, colors=self.colors)
+        self._regions = [create_annot_region(name, colors=self.colors,
+                                             show_annot=self.show_annot)
                          for name in self.region_names]
