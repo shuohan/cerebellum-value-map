@@ -12,7 +12,7 @@ during normal aging <https://www.sciencedirect.com/science/article/pii/S10538119
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents
     
    api

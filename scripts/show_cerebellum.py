@@ -41,7 +41,7 @@ parser.add_argument('-S', '--scale', type=float, default=0.2,
                          'The translation is performed before scaling.')
 parser.add_argument('-f', '--font-size', type=int, default=9,
                     help='The font size in the SVG image.')
-parser.add_argument('-w', '--stroke-width', type=int, default=2,
+parser.add_argument('-w', '--stroke-width', type=int, default=1,
                     help='The stroke width in the SVG image.')
 parser.add_argument('-a', '--show-annotation', action='store_true',
                     help='Show the annotation of each region.')

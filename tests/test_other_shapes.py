@@ -24,8 +24,8 @@ def test_other_shapes():
     data.columns = ['name', 'value']
     data = data.set_index('name')
     print(data)
-    drawing = CerebellumValueMap(data, 'results/other_shapes.svg',
-                                 create=create_shape)
+    drawing = CerebellumValueMap(data, '../docs/source/_static/other_shapes.svg',
+                                 create=create_shape, size=(400, 200))
     drawing.save()
 
 if __name__ == '__main__':
