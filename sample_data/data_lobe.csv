@@ -1,0 +1,11 @@
+name,value
+Right Anterior,0.1
+Left Anterior,-0.1
+Right Superior Posterior,0.2
+Left Superior Posterior,-0.2
+Right Inferior Posterior,0.4
+Left Inferior Posterior,-0.4
+Right X,0.6
+Left X,0.7
+Vermis,-0.8
+Corpus Medullare,0.9
